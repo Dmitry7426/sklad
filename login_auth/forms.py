@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 
 class Login(forms.Form):
     username = forms.CharField()
-    password = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput())
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(label='Логин', max_length=50, widget=forms.TextInput(attrs={'class': 'form-input'}))
