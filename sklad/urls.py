@@ -1,0 +1,37 @@
+"""sklad URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.contrib import admin
+from django.urls import path, include
+
+
+
+# from input_data import views
+# from login_auth import views
+
+urlpatterns = [
+    # path('', views.index),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('input_data/', include('input_data.urls')),
+    path('input_data/st2/', include('input_data.urls')),
+    path('input_data/form_in/', include('input_data.urls')),
+    path('input_data/index/', include('input_data.urls')),
+    path('input_data/', include('input_data.urls')),
+    path('', include('login_auth.urls')),
+    # path('login_auth/index/', include('login_auth.urls')),
+    # path('login_auth/register/', include('login_auth.urls')),
+    # path('login_auth/testauth/', include('login_auth.urls')),
+]

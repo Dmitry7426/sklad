@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+
+
+
+
+{% block forms %}
+
+{% if user.is_authenticated %}
+<h1 class="forms">Форма ввода типов оборудования</h1>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="Сохранить">
+</form>
+{% else %}
+<h2>Заполнение справочников доступно только зарегистрированным пользователям!</h2>
+{% endif %}
+{% endblock %}

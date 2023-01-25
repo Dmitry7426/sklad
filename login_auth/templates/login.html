@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block forms %}
+<h1 class="forms">Вход в систему</h1>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {% csrf_token %}
+        {{ form }}
+    </table>
+    <input type="submit" value="Войти">
+</form>
+{% endblock %}

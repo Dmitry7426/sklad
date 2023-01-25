@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style_data.css' %}">
+
+</head>
+<body>
+<div class="wrapper">
+<ul class="top">
+    <li>Главная</li>
+    <ul>Ввод
+        <li><a href="#"> Пункт 1 </a></li>
+        <li><a href="#"> Пункт 2 </a></li>
+    </ul>
+    <ul>Отчеты
+        <li><a href="#"> Отчет 1 </a></li>
+        <li><a href="#"> Отчет 2 </a></li>
+        <li><a href="#"> Отчет 3 </a></li>
+    </ul>
+    <ul>
+        <li>
+            {% if user.is_authenticated %}
+            <li><p>{{ user.get_username }} сейчас в системе | <a href="{% url 'logout' %}">Выйти</a></p></li>
+            {% else %}
+            <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+    </ul>
+
+</ul>
+
+</div>
+
+    <h1 class="test">TEST!!! Главная страница</h1>
+
+{% if user.is_authenticated %}
+    <h3>Активный пользователь {{ user.get_username }}</h3>
+    <h3><a href="{% url 'logout' %}">Выйти</a></h3>
+{% else %}
+    <h3>Нет вошедшего пользователя</h3>
+{% endif %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block forms %}
+
+{% endblock %}
+
+</body>
+</html>

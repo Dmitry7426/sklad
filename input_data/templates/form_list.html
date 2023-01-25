@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+
+
+
+
+{% block forms %}
+
+
+<h1 class="forms">Форма ввода по списку</h1>
+<form method="POST">
+    {% csrf_token %}
+    <select name="select" size="5">
+        {% for i in ch %}
+    <option value="{{ i }}">
+        {{ i }}
+    </option>
+      {% endfor %}
+  </select>
+    <br>
+    <br>
+    <input type="submit" value="Сохранить">
+
+
+</form>
+<br>
+<br>
+
+<form method="POST">
+    {% csrf_token %}
+    <select name="select" size="1" onresize="5">
+        {% for i in ch %}
+    <option value="{{ i }}">
+        {{ i }}
+    </option>
+      {% endfor %}
+  </select>
+    <br>
+    <br>
+    <input type="submit" value="Сохранить">
+
+
+</form>
+
+
+{% endblock %}
