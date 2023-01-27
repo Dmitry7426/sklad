@@ -9,6 +9,11 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+{% if name is null %}
+<h2>Справочник пользователей пустой!</h2>
+{% else %}
+
 <h1 class="forms">Удаление пользователя</h1>
 <form method="POST">
     {% csrf_token %}
@@ -16,15 +21,16 @@
         {% for i in name %}
     <option value="{{ i }}">
         {{ i }}
+        {{ error }}
     </option>
       {% endfor %}
   </select>
     <br>
     <br>
-    <input type="submit" value="Сохранить">
-
+    <input type="submit" value="Удалить запись">
 
 </form>
 <br>
 <br>
+{% endif %}
 {% endblock %}

@@ -15,6 +15,11 @@ class BrandsForm(forms.Form):
 class ModelsForm(forms.Form):
     name = forms.CharField(label="Модель")
 
+# инвентарные номера
+class InvNumForm(forms.Form):
+    inv = forms.CharField(label='Инвентарный номер')
+
+
 # форма для шаблона с вкладками
 class TabForm(forms.Form):
     name = forms.CharField(label='Введите данные')
@@ -34,7 +39,13 @@ class UserDeleteForm(forms.Form):
     SurName = forms.CharField(label='Фамилия')
 
 
-
+class EquipmentsAllForm(forms.Form):
+    InvNum = forms.CharField(label='Инвентарный номер')
+    Types_id = forms.CharField(label='Тип')
+    Brand_id = forms.CharField(label='Производитель')
+    Model_id = forms.CharField(label='Модель')
+    User_id = forms.CharField(label='Пользователь')
+    Hardware_id = forms.CharField(label='Установленный софт')
 
 
 

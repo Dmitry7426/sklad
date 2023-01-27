@@ -3,7 +3,8 @@ import re
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm
+from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm, \
+    EquipmentsAllForm
 from .models import *
 from django import forms
 
@@ -97,28 +98,53 @@ def form_users(request):
 
 # функция удаления пользователя из справочника Users
 def form_delete_user(request):
-
-    allobj = Users.objects.all()
-    name = []
-    for i in allobj:
-        name.append(i.UserName + ' ' + i.MidlName + ' ' + i.SurName + ' ' + i.Position.PositionName)
     form = UserDeleteForm()
-    if request.method == 'POST':
-        lst = request.POST.get('select')
-        lst = lst.split(' ')
-        print(len(lst))
-        if len(lst) == 4:
-            id_id = Users.objects.filter(UserName=lst[0], MidlName=lst[1], SurName=lst[2], Position=[4])
-            for i in id_id:
-
-                print(i.id)
-            messages.info(request, 'Запись успешно удалена!!')
-            return HttpResponseRedirect('/input_data/delete_user')
-        else:
-            messages.info(request, 'Вы не выбрали объект для удаления!')
-
+    if Users.objects.all():
+        allobj = Users.objects.all()
+        name = []
+        for i in allobj:
+            name.append(i.UserName + ', ' + i.MidlName + ', ' + i.SurName + ', ' + i.Position.PositionName)
+        if request.method == 'POST':
+            if request.POST.get('select'):
+                lst = request.POST.get('select')
+                # print(lst)
+                lst = lst.split(', ')
+                # print(lst)
+                if len(lst) == 4:
+                    for i in Position.objects.filter(PositionName=lst[3]):
+                        id_pos = i.id
+                    # print(id_pos)
+                    Users.objects.filter(UserName=lst[0], MidlName=lst[1], SurName=lst[2], Position=id_pos).delete()
+                    messages.info(request, 'Запись успешно удалена!!')
+                    return HttpResponseRedirect('/input_data/delete_user')
+                return render(request, 'form_del_users.html', {'form': form, 'name': name})
+            else:
+                messages.info(request, 'Вы ни чего выбрали!')
+    else:
+        return render(request, 'form_del_users.html', {'form': form})
     return render(request, 'form_del_users.html', {'form': form, 'name': name})
 
+
+
+# функция добавления записей о принадлежности оборудования
+
+def form_equipments(request):
+    form = EquipmentsAllForm()
+    invnum = InvNum.objects.all()
+    typeeq = TypesEquipments.objects.all()
+    for i in invnum:
+        print(i.InvNumber)
+    for i in typeeq:
+        print(i.TypesEq)
+    if request.method == 'POST':
+        inv = request.POST.get('inv')
+        typ = request.POST.get('typeeq')
+        # inv = Equipments.objects.create(InvNum=request.POST.get('inv'))
+        print(inv, ' - ', typ)
+        return render(request, 'form_equipments_all.html', {'form': form, 'invnum': invnum, 'typeeq': typeeq})
+    return render(request, 'form_equipments_all.html', {'form': form, 'invnum': invnum, 'typeeq': typeeq})
+
+    # Positions = Position.objects.create(PositionName=request.POST.get('Position'))
 
 
 
