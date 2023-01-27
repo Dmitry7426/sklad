@@ -10,4 +10,6 @@ urlpatterns = [
     path('form_in', views.form_in),
     path('form_tabs', views.form_tabs),
     path('form_list', views.form_list),
+    path('form_users', views.form_users),
+    path('delete_user', views.form_delete_user),
 ]

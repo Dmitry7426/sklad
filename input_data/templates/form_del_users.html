@@ -1,11 +1,14 @@
 {% extends "index.html" %}
 
-
-
-
 {% block forms %}
 
-
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <h1 class="forms">Удаление пользователя</h1>
 <form method="POST">
     {% csrf_token %}
@@ -24,6 +27,4 @@
 </form>
 <br>
 <br>
-
-
 {% endblock %}

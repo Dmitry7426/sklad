@@ -10,6 +10,13 @@
 <form method="POST">
     {% csrf_token %}
     <table>
+        {% if messages %}
+        <ol>
+        {% for messages in messages %}
+            <li>{{ messages }}</li>
+        {% endfor %}
+        </ol>
+        {% endif %}
         {{ form }}
     </table>
     <input type="submit" value="Сохранить">

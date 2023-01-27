@@ -2,31 +2,34 @@
 
 
 {% block content %}
+{% if user.is_authenticated %}
+<h1>Справочник типов, моделей и брендов оборудования</h1>
 <div class="tabs">
-  <input type="radio" name="inset" value="" id="tab_1" checked>
-    <label for="tab_1">Бренды</label>
-
+    <input type="radio" name="inset" value="" id="tab_1" checked>
+    <label for="tab_1">Тип оборудования</label>
     <input type="radio" name="inset" value="" id="tab_2">
-    <label for="tab_2">Классификация</label>
+    <label for="tab_2">Бренд</label>
+    <input type="radio" name="inset" value="" id="tab_3">
+    <label for="tab_3">Модель</label>
 
-  <div id="txt_1">
-        <h1 class="forms">Форма ввода с вкладками 1</h1>
-<form method="POST" id="n1">
+    <div id="txt_1">
+        <h1 class="forms">Тип оборудования</h1>
+    <form method="POST" id="n1">
     {% csrf_token %}
     <table>
         {{ form }}
         {{ field.auto_id }}
     </table>
     <input type="submit" value="Сохранить">
-    <input type="hidden" name="forms" value="formOne">
+    <input type="hidden" name="forms" value="equipments">
 </form>
 
-
-
     </div>
+
+
     <div id="txt_2">
 
-        <h1 class="forms">Форма ввода с вкладками 2</h1>
+        <h1 class="forms">Бренды</h1>
 <form method="POST" id="n2">
     {% csrf_token %}
     <table>
@@ -34,32 +37,27 @@
         {{ field.auto_id }}
     </table>
     <input type="submit" value="Сохранить">
-    <input type="hidden" name="forms" value="formTwo">
+    <input type="hidden" name="forms" value="brands">
 </form>
 
     </div>
 
-{% endblock %}
-
-{% block forms %}
-{% if user.is_authenticated %}
-
-
-
-<h1 class="forms">Форма ввода с вкладками</h1>
-<form method="POST">
+    <div id="txt_3">
+<h1 class="forms">Модель</h1>
+<form method="POST" id="n3">
     {% csrf_token %}
     <table>
         {{ form }}
+        {{ field.auto_id }}
     </table>
     <input type="submit" value="Сохранить">
+    <input type="hidden" name="forms" value="models">
 </form>
+
+    </div>
 {% else %}
-<h2>Заполнение справочников доступно только зарегистрированным пользователям!</h2>
+    <h2>Действие доступно только зарегистрированным пользователям!</h2>
+    <h3>Войдите в систему <a href="/login"></a> или обратитесь к администратору!</h3>
 {% endif %}
-
-
-
-</div>
-
 {% endblock %}
+
