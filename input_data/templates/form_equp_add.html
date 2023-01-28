@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block forms %}
+
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h1 class="forms">Добавление нового оборудования</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ validate.error }}
+        {{ form }}
+        {{ error }}
+    </table>
+
+
+<!--    ФОрмирование списка по типам    -->
+    <div><h3>Тип</h3>
+    <select name="typeeq" size="1">
+         {% for i in typeeq %}
+            <option value="{{ i.TypesEq }}">
+                {{ i.TypesEq }}
+            {{ error }}
+            </option>
+        {% endfor %}
+    </select>
+<!--    Формирование списка по брендам  -->
+<div><h3>Бренд</h3>
+    <select name="brand" size="1">
+        {% for i in brands %}
+            <option value="{{ i.BrandName }}">
+                {{ i.BrandName }}
+            {{ error }}
+            </option>
+        {% endfor %}
+    </select>
+<!--    Формирование списка по моделям  -->
+ <div><h3>Модель</h3>
+    <select name="model" size="1">
+        {% for i in models %}
+            <option value="{{ i.ModelName }}">
+                {{ i.ModelName }}
+            {{ error }}
+            </option>
+        {% endfor %}
+    </select>
+    <br>
+     <br>
+
+    <input type="submit" value="Сохранить">
+ </div>
+</div>
+    </div>
+</form>
+
+{% endblock %}

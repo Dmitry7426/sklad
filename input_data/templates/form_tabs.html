@@ -3,18 +3,21 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Справочник типов, моделей и брендов оборудования</h1>
+<h1>Справочник типов, моделей, брендов оборудования</h1>
 <div class="tabs">
-    <input type="radio" name="inset" value="" id="tab_1" checked>
-    <label for="tab_1">Тип оборудования</label>
-    <input type="radio" name="inset" value="" id="tab_2">
-    <label for="tab_2">Бренд</label>
-    <input type="radio" name="inset" value="" id="tab_3">
-    <label for="tab_3">Модель</label>
 
-    <div id="txt_1">
+    <input type="radio" name="inset" value="" id="tab_2">
+    <label for="tab_2">Тип оборудования</label>
+    <input type="radio" name="inset" value="" id="tab_3">
+    <label for="tab_3">Бренд</label>
+    <input type="radio" name="inset" value="" id="tab_4">
+    <label for="tab_4">Модель</label>
+
+
+
+    <div id="txt_2">
         <h1 class="forms">Тип оборудования</h1>
-    <form method="POST" id="n1">
+    <form method="POST" id="n2">
     {% csrf_token %}
     <table>
         {{ form }}
@@ -27,10 +30,10 @@
     </div>
 
 
-    <div id="txt_2">
+    <div id="txt_3">
 
         <h1 class="forms">Бренды</h1>
-<form method="POST" id="n2">
+<form method="POST" id="n3">
     {% csrf_token %}
     <table>
         {{ form }}
@@ -42,9 +45,9 @@
 
     </div>
 
-    <div id="txt_3">
+    <div id="txt_4">
 <h1 class="forms">Модель</h1>
-<form method="POST" id="n3">
+<form method="POST" id="n4">
     {% csrf_token %}
     <table>
         {{ form }}

@@ -19,28 +19,35 @@
         <select name="inv" size="5" >
             {% for i in invnum %}
                 <option value="{{ i.InvNumber }}">
-                    {{ i.InvNumber }}
+                    {{ i.InvNumber }}{{ ' - ' }}{{ i.typ.TypesEq }}{{ ' ' }}{{ i.brand.BrandName }}{{ ' ' }}{{ i.model.ModelName }}
                     {{ error }}
                 </option>
             {% endfor %}
         </select>
-<!--    Формирование списка выбора типа оборудования    -->
-<div><h3>Тип</h3>
-    <select name="typeeq" size="5">
-        {% for i in typeeq %}
-            <option value="{{ i.TypesEq }}">
-                {{ i.TypesEq }}
+
+ <div><h3>Пользователь</h3>
+    <select name="user" size="5">
+        {% for i in user %}
+            <option value="{{ i.SurName }}">
+                {{ i.SurName}}{{ ' ' }}{{ i.UserName }}{{ ' ' }}{{ i.MidlName}}{{ ' - ' }}{{ i.Unit.UnitName }}{{ ', ' }}{{ i.Position.PositionName }}
             {{ error }}
             </option>
         {% endfor %}
     </select>
-    </div>
-</div>
+
+
 
     <br>
     <br>
     <input type="submit" value="Записать">
 
+
+
+
+
+
+        </div>
+</div>
 </form>
 <br>
 <br>

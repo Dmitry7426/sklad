@@ -39,13 +39,22 @@ class UserDeleteForm(forms.Form):
     SurName = forms.CharField(label='Фамилия')
 
 
-class EquipmentsAllForm(forms.Form):
-    InvNum = forms.CharField(label='Инвентарный номер')
-    Types_id = forms.CharField(label='Тип')
-    Brand_id = forms.CharField(label='Производитель')
-    Model_id = forms.CharField(label='Модель')
-    User_id = forms.CharField(label='Пользователь')
-    Hardware_id = forms.CharField(label='Установленный софт')
+# форма для регистрации нового облорудования
+class EquipmentAddForm(forms.Form):
+    inv = forms.CharField(label='Инвентарный номер')
+    netname = forms.CharField(label='Сетевое имя', required=False)
+    # typ = forms.CharField(label='Тип')
+    # brand = forms.CharField(label='Бренд')
+    # model = forms.CharField(label='Модель')
+
+# форма привязки оборудования к пользователю
+class EquipmentsLinkUsers(forms.Form):
+    InvNum = forms.CharField(label='Инвентарный номер', required=False)
+    # Types_id = forms.CharField(label='Тип')
+    # Brand_id = forms.CharField(label='Производитель')
+    # Model_id = forms.CharField(label='Модель')
+    User = forms.CharField(label='Пользователь', required=False)
+    # Hardware_id = forms.CharField(label='Установленный софт')
 
 
 

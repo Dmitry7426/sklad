@@ -9,7 +9,7 @@ class TypesEquipments(models.Model):
 
 # Таблица Бренды
 class Brands(models.Model):
-    BrandName = models.CharField(max_length=100)
+    BrandName = models.CharField(max_length=100, blank=True)
 
 
 # Таблица Модель
@@ -29,15 +29,18 @@ class Position(models.Model):
 
 # Таблица Пользователи
 class Users(models.Model):
-    UserName = models.CharField(max_length=100, validators=[RegexValidator('[0-9]', message='Wrong')])
+    UserName = models.CharField(max_length=100)
     MidlName = models.CharField(max_length=100)
     SurName = models.CharField(max_length=100)
     Position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=True)
     Unit = models.ForeignKey(Unit, on_delete=models.CASCADE, blank=True)
 
 class InvNum(models.Model):
-    InvNumber = models.CharField(max_length=9, blank=False)
-
+    InvNumber = models.CharField(max_length=9)
+    typ = models.ForeignKey(TypesEquipments, on_delete=models.CASCADE, null=True)
+    brand = models.ForeignKey(Brands, on_delete=models.CASCADE, null=True)
+    model = models.ForeignKey(Models, on_delete=models.CASCADE, null=True)
+    netname = models.CharField(max_length=25, null=True)
 
 # Таблица Состав оборудования
 class Hardware(models.Model):
@@ -59,11 +62,12 @@ class Hardware(models.Model):
 
 # Таблица Оборудование с инвентарными номерами и связи по пользователям, подразделениям
 class Equipments(models.Model):
-    InvNum = models.ForeignKey(InvNum, on_delete=models.DO_NOTHING)
-    Types_id = models.ForeignKey(TypesEquipments, on_delete=models.CASCADE)
-    Brand_id = models.ForeignKey(Brands, on_delete=models.CASCADE)
-    Model_id = models.ForeignKey(Models, on_delete=models.CASCADE)
-    User_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    Hardware_id = models.ForeignKey(Hardware, on_delete=models.CASCADE, blank=True)
+    Number = models.ForeignKey(InvNum, on_delete=models.DO_NOTHING)
+    # Types_id = models.ForeignKey(TypesEquipments, on_delete=models.CASCADE)
+    # Brand_id = models.ForeignKey(Brands, on_delete=models.CASCADE)
+    # Model_id = models.ForeignKey(Models, on_delete=models.CASCADE)
+    User = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True)
+    Hardware = models.ForeignKey(Hardware, on_delete=models.CASCADE, blank=True)
+
 
 

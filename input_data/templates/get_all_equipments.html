@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+
+{% block forms %}
+
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h1 class="forms">Техника по предприятию</h1>
+
+
+<form method="post">
+    {% csrf_token %}
+
+
+
+    <p><input type="checkbox" value="types" name="types">Сортировка по типу оборудования</p>
+    <p><input type="checkbox" value="name" name="name">Сортировка по наименованию оборудования</p>
+    <p><input type="checkbox" value="user" name="user">Сортировка по фамилии</p>
+    <p><input type="checkbox" value="unit" name="unit">Сортировка по подразделениям</p>
+
+
+    <input type="submit" value="Применить">
+    <br>
+
+</form>
+
+
+
+    <table>
+        <tr>
+            <th>Инвентарный номер</th>
+            <th>Тип</th>
+            <th>Наименование</th>
+            <th>Сотрудник</th>
+            <th>Должность</th>
+            <th>Подразделение</th>
+
+        </tr>
+
+                {% for i in data %}
+        <tr>
+            <td>{{ i.Number.InvNumber }}</td>
+            <td>{{ i.Number.typ.TypesEq }}</td>
+            <td>{{ i.Number.brand.BrandName }}{{ ' ' }}{{ i.Number.model.ModelName }}</td>
+            <td>{{ i.User.SurName }}{{ ' ' }}{{ i.User.UserName }}{{ ' ' }}{{ i.User.MidlName }}</td>
+            <td>{{ i.User.Position.PositionName }}</td>
+            <td>{{ i.User.Unit.UnitName }}</td>
+        </tr>
+                {% endfor %}
+
+
+
+    </table>
+
+
+
+
+
+{% endblock %}

@@ -13,4 +13,6 @@ urlpatterns = [
     path('form_users', views.form_users),
     path('delete_user', views.form_delete_user),
     path('equipments', views.form_equipments),
+    path('equip_add', views.form_add_equipment),
+    path('get_all_data', views.get_all_equipments),
 ]
