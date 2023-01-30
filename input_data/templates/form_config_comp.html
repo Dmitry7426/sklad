@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+
+{% block forms %}
+
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h1 class="forms">Конфигурация ПК</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <div><h3>Выбрать устройство</h3>
+    <select name="invent" size="1">
+         {% for i in inv %}
+            <option value="{{ i.InvNumber }}">
+                {{ i.InvNumber }} {{' - '}} {{ i.typ.TypesEq }}
+            {{ error }}
+            </option>
+        {% endfor %}
+    </select>
+
+
+    <table>
+        {{ form }}
+        {{ error }}
+    </table>
+
+
+
+
+    <input type="submit" value="Сохранить">
+</form>
+
+{% endblock %}

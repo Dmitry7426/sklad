@@ -1,11 +1,12 @@
 import re
 
 from django.contrib import messages
+from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm, \
-    EquipmentAddForm, EquipmentsLinkUsers
+    EquipmentAddForm, EquipmentsLinkUsers, UnitForm, PositionForm, ConfigComputer
 from .models import *
 
 
@@ -42,65 +43,83 @@ def form_tabs(request):
     form = TabForm()
     if request.method == 'POST':
         if request.POST.get('forms') == 'equipments':
-            form = EquipmentsForm(request.POST)
+            form = BrandsForm(request.POST)
             if form.is_valid():
                 t = request.POST.get('name')
-                types = TypesEquipments.objects.create(TypesEq=t)
-                types.save()
-                return HttpResponse(f'<h2>{t} успешно добавлен в справочник!</h2><a href="/input_data/form_tabs"> '
-                                    f'Добавить еще!</a><br><br><a href="/">Вернуться на главную</a>')
-            else:
-                form = EquipmentsForm()
-                messages.info(request, 'Не допустимое наименование')
-                return render(request, 'form_tabs.html', {'form': form})
+                try:
+                    types = Brands.objects.create(BrandName=t)
+                    types.save()
+                    return HttpResponse(f'<br><h1>{t} успешно добавлен в справочник!</h1></h1><br><br></h2><a href="/input_data/form_tabs"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+                except IntegrityError:
+                    return HttpResponse(
+                            f'<br><h1>{t} уже есть в справочнике! </h1><br><br></h2><a href="/input_data/form_tabs"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
 
         if request.POST.get('forms') == 'brands':
             form = BrandsForm(request.POST)
             if form.is_valid():
                 t = request.POST.get('name')
-                types = Brands.objects.create(BrandName=t)
-                types.save()
-                return HttpResponse(f'<h2>{t} успешно добавлен в справочник!</h2><a href="/input_data/form_tabs"> '
-                                    f'Добавить еще!</a><br><br><a href="/">Вернуться на главную</a>')
-            else:
-                form = BrandsForm()
-                messages.info(request, 'Не допустимое наименование')
-                return render(request, 'form_tabs.html', {'form': form})
+                try:
+                    types = Brands.objects.create(BrandName=t)
+                    types.save()
+                    return HttpResponse(f'<br><h1>{t} успешно добавлен в справочник!</h1></h1><br><br></h2><a href="/input_data/form_tabs"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+                except IntegrityError:
+                    return HttpResponse(f'<br><h1>{t} уже есть в справочнике! </h1><br><br></h2><a href="/input_data/form_tabs"> '
+                                        f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+
+            #
+            # else:
+            #     form = BrandsForm()
+            #     messages.info(request, 'Не допустимое наименование')
+            #     return render(request, 'form_tabs.html', {'form': form})
 
         if request.POST.get('forms') == 'models':
-            form = ModelsForm(request.POST)
+            form = BrandsForm(request.POST)
             if form.is_valid():
                 t = request.POST.get('name')
-                types = Models.objects.create(ModelName=t)
-                types.save()
-                return HttpResponse(f'<h2>{t} успешно добавлен в справочник!</h2><a href="/input_data/form_tabs"> '
-                                    f'Добавить еще!</a><br><br><a href="/">Вернуться на главную</a>')
-            else:
-                form = ModelsForm()
-                messages.info(request, 'Не допустимое наименование')
-                return render(request, 'form_tabs.html', {'form': form})
+                try:
+                    types = Brands.objects.create(BrandName=t)
+                    types.save()
+                    return HttpResponse(f'<br><h1>{t} успешно добавлен в справочник!</h1></h1><br><br></h2><a href="/input_data/form_tabs"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+                except IntegrityError:
+                    return HttpResponse(
+                            f'<br><h1>{t} уже есть в справочнике! </h1><br><br></h2><a href="/input_data/form_tabs"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
 
     return render(request, 'form_tabs.html', {'form': form})
 
 # функция добавления пользователя в справочник (с должностью и подразделением)
 def form_users(request):
     form = UserForm()
+    unit = Unit.objects.all()
+    pos = Position.objects.all()
     if request.method == 'POST':
         arr = []
         for item in request.POST:
             arr.append(request.POST.get(item))
         arr = arr[1:]
+        print(arr)
+        print(request.POST.get('position'))
+        print(request.POST.get('unit'))
+
         if func_re(arr):
             Users.objects.create(UserName=arr[0], MidlName=arr[1], SurName=arr[2],
-                                 Position=Position.objects.create(PositionName=arr[3]),
-                                 Unit=Unit.objects.create(UnitName=arr[4])).save()
+                                 Position=Position.objects.get(PositionName=request.POST.get('position')),
+                                 Unit=Unit.objects.get(UnitName=request.POST.get('unit'))).save()
+
+            # Users.objects.create(UserName=arr[0], MidlName=arr[1], SurName=arr[2],
+            #                      Position=Position.objects.get(PositionName=arr[4]),
+            #                      Unit=Unit.objects.get(UnitName=arr[3])).save()
             messages.info(request, 'Информация записана в базу данных!')
-            return render(request, 'form_users.html', {'form': form})
+            return render(request, 'form_users.html', {'form': form, 'unit': unit, 'pos': pos})
         else:
             messages.info(request, 'Данные введены не корректные либо не допустимые символы!!')
-            return render(request, 'form_users.html', {'form': form})
+            return render(request, 'form_users.html', {'form': form, 'unit': unit, 'pos': pos})
 
-    return render(request, 'form_users.html', {'form': form})
+    return render(request, 'form_users.html', {'form': form, 'unit': unit, 'pos': pos})
 
 # функция удаления пользователя из справочника Users
 def form_delete_user(request):
@@ -171,22 +190,28 @@ def form_add_equipment(request):
     num = InvNum.objects.all()
 
     if request.method == 'POST':
-        if InvNum.objects.filter(InvNumber=request.POST.get('inv')):
-            print('yes')
+        print(request.POST.get('inv'))
 
-            messages.info(request, 'Такой инвентарный номер уже есть! Проверьте и введите заново.')
+        if func_invnum(request.POST.get('inv')):
+            print('Запись в базу произведена')
+            InvNum.objects.create(InvNumber=request.POST.get('inv'),
+                                  typ=TypesEquipments.objects.get(TypesEq=request.POST.get('typeeq')),
+                                  brand=Brands.objects.get(BrandName=request.POST.get('brand')),
+                                  model=Models.objects.get(ModelName=request.POST.get('model')),
+                                  netname=request.POST.get('netname')).save()
+            messages.info(request, 'Информация успешно внесена в базу данных')
             return render(request, 'form_equp_add.html', {'form': form, 'typeeq': typeeq,
-                                                              'brands': brands, 'models': models})
+                                                      'brands': brands, 'models': models})
+        # if InvNum.objects.filter(InvNumber=request.POST.get('inv')):
+            # print('yes')
+
 
         else:
-            InvNum.objects.create(InvNumber=request.POST.get('inv'),
-                                    typ=TypesEquipments.objects.get(TypesEq=request.POST.get('typeeq')),
-                                    brand=Brands.objects.get(BrandName=request.POST.get('brand')),
-                                    model=Models.objects.get(ModelName=request.POST.get('model')),
-                                    netname=request.POST.get('netname')).save()
-
+            print('Ошибка- либо номер есть либо введен не верно')
+            messages.info(request, 'Такой инвентарный номер уже есть, либо номер введен не корректно! Проверьте и введите заново.')
             return render(request, 'form_equp_add.html', {'form': form, 'typeeq': typeeq,
-                                                              'brands': brands, 'models': models})
+                                                      'brands': brands, 'models': models})
+
 
     return render(request, 'form_equp_add.html', {'form': form, 'typeeq': typeeq,
                                                         'brands': brands, 'models': models})
@@ -228,6 +253,7 @@ def get_all_equipments(request):
     return render(request, 'get_all_equipments.html', {'form': form, 'data': get_all})
 
 # функция выбора техники по параметрам
+
 # выбор по подразделениям
 def get_units(request):
     pass
@@ -244,6 +270,52 @@ def get_brand(request):
 def get_type(request):
     pass
 
+# форма ввода подразделения
+def form_units(request):
+    form = UnitForm()
+    if request.method == 'POST':
+        try:
+            Unit.objects.create(UnitName=(request.POST.get('name'))).save()
+            return HttpResponse(
+                f'<br><h1>Запись успешно добавлена!</h1></h1><br><br></h2><a href="/input_data/add_unit"> '
+                f'Добавить еще</a><br><br><a href="/">Вернуться на главную</a>')
+        except IntegrityError:
+            return HttpResponse(f'<br><h1>Такая запись уже есть!</h1></h1><br><br></h2><a href="/input_data/add_unit"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+    return render(request, 'form_unit.html', {'form': form})
+
+# форма ввода должности
+def form_position(request):
+    form = PositionForm()
+    if request.method == 'POST':
+        try:
+            Position.objects.create(PositionName=(request.POST.get('name'))).save()
+            return HttpResponse(
+                f'<br><h1>Запись успешно добавлена!</h1></h1><br><br></h2><a href="/input_data/add_position"> '
+                f'Добавить еще</a><br><br><a href="/">Вернуться на главную</a>')
+        except IntegrityError:
+            return HttpResponse(f'<br><h1>Такая запись уже есть!</h1></h1><br><br></h2><a href="/input_data/add_position"> '
+                            f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
+    return render(request, 'form_pos.html', {'form': form})
+
+# функция заполения конфигурации ПК
+def config_computer(request):
+    form = ConfigComputer()
+    inv = InvNum.objects.all()
+
+    if request.method == 'POST':
+        arr = []
+        for items in request.POST:
+            arr.append(request.POST.get(items))
+        arr = arr[1:]
+        Hardware.objects.create(InvNumber=InvNum.objects.get(InvNumber=''.join(arr[0])), OperateSystem=arr[1],
+                                Activate=arr[2], CurrentUser=arr[3], IPAddress=arr[4], MAC=arr[5],
+                                SystemName=arr[6], LANSpeed=arr[7], HDD=arr[8], Mboard=arr[9], ProcessorName=arr[10],
+                                Soccet=arr[11], OZU=arr[12], PrinterTypeConnect=arr[13], InstalledSoft=arr[13])
+
+    return render(request, 'form_config_comp.html', {'form': form, 'inv': inv})
+
+
 # тестовая форма работы со списком
 def form_list(request):
     allobj = Users.objects.all()
@@ -257,6 +329,10 @@ def form_list(request):
         Users.objects.filter(UserName=lst[0], MidlName=lst[1], SurName=lst[2]).delete()
     return render(request, 'form_list.html', {'form': form, 'name': name})
 
+
+
+
+
 # функция проверки полей на ввод только латиницей
 def func_re(a):
     r = []
@@ -268,4 +344,23 @@ def func_re(a):
         return False
     else:
         return True
+
+# функция проверки инвентарного номера на дубликат и корректность ввода
+def func_invnum(a):
+    print(a)
+    if InvNum.objects.filter(InvNumber=a):  # проверка наличия номера в бд
+        print('Такой номер в базе есть')
+
+        return False
+    else:
+        tmp = a.lower()
+        tmp = re.sub(r'м', 'm', tmp)
+        if re.match(r'^m0{2}0\d{5}$', tmp) or re.match(r'^\d{6}$', tmp):
+            print('Номер корректный')
+            return True
+        else:
+            res = 'nor correct'
+            print('Номер не корректнгый')
+            return False
+
 

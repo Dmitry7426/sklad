@@ -15,4 +15,7 @@ urlpatterns = [
     path('equipments', views.form_equipments),
     path('equip_add', views.form_add_equipment),
     path('get_all_data', views.get_all_equipments),
+    path('add_unit', views.form_units),
+    path('add_position', views.form_position),
+    path('conf_comp', views.config_computer),
 ]
