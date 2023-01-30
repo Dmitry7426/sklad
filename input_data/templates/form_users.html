@@ -14,11 +14,11 @@
 <form method="POST">
     {% csrf_token %}
     <table>
-        {{ validate.error }}
+        {{ validationerror }}
         {{ form }}
         {{ error }}
     </table>
-    <input type="submit" value="Сохранить">
+    <input type="submit" value="Сохранить" pattern="[А-Яа-я]">
 </form>
 
 {% endblock %}

@@ -3,10 +3,11 @@ import re
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+
 from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm, \
-     EquipmentAddForm, EquipmentsLinkUsers
+    EquipmentAddForm, EquipmentsLinkUsers
 from .models import *
-from django import forms
+
 
 def index(request):
     return render(request, 'index.html')
@@ -85,15 +86,19 @@ def form_tabs(request):
 def form_users(request):
     form = UserForm()
     if request.method == 'POST':
-        UserName = request.POST.get('UserName')
-        MidlName = request.POST.get('MidlName')
-        SurName = request.POST.get('SurName')
-        Positions = Position.objects.create(PositionName=request.POST.get('Position'))
-        Units = Unit.objects.create(UnitName=request.POST.get('Units'))
-        types = Users.objects.create(UserName=UserName, MidlName=MidlName, SurName=SurName, Position=Positions, Unit=Units)
-        types.save()
-        messages.info(request, 'Запись добавлена!')
-        return render(request, 'form_users.html', {'form': form})
+        arr = []
+        for item in request.POST:
+            arr.append(request.POST.get(item))
+        arr = arr[1:]
+        if func_re(arr):
+            Users.objects.create(UserName=arr[0], MidlName=arr[1], SurName=arr[2],
+                                 Position=Position.objects.create(PositionName=arr[3]),
+                                 Unit=Unit.objects.create(UnitName=arr[4])).save()
+            messages.info(request, 'Информация записана в базу данных!')
+            return render(request, 'form_users.html', {'form': form})
+        else:
+            messages.info(request, 'Данные введены не корректные либо не допустимые символы!!')
+            return render(request, 'form_users.html', {'form': form})
 
     return render(request, 'form_users.html', {'form': form})
 
@@ -252,6 +257,15 @@ def form_list(request):
         Users.objects.filter(UserName=lst[0], MidlName=lst[1], SurName=lst[2]).delete()
     return render(request, 'form_list.html', {'form': form, 'name': name})
 
+# функция проверки полей на ввод только латиницей
+def func_re(a):
+    r = []
+    for i in a:
+        res = bool(re.findall(r'[a-zA-Z]', i))
+        r.append(res)
 
-
+    if True in r:
+        return False
+    else:
+        return True
 

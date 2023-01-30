@@ -26,7 +26,7 @@ class TabForm(forms.Form):
 
 # форма заполнения Фамилии, имени, отчества сотрудников
 class UserForm(forms.Form):
-    UserName = forms.CharField(label='Имя', validators=[RegexValidator(r'[0-9]', message='Wrong')])
+    UserName = forms.CharField(label='Имя')
     MidlName = forms.CharField(label='Отчество')
     SurName = forms.CharField(label='Фамилия')
     Position = forms.CharField(label='Должность')
