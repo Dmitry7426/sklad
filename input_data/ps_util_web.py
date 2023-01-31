@@ -70,31 +70,19 @@ class get_info:
 
     def get_printer():
         i = 0
-        caption = []
-        port = []
+        arr = {}
         for items in computer.Win32_Printer():
-            i += 1
-            # slovar.update({f'Принтер наименование {i}': prn.Caption})
-            # slovar.update({f'Порт {i}': prn.PortName})
-
-            slovar.update({
-                f'Принтер {i}': {
-                f'{items.Caption}': f'{items.PortName}'
-
-
-                }
-                })
+            arr[items.Caption] = items.PortName
+        slovar['Принтера'] = arr
+        print(slovar)
 
     def get_soft():
         i = 0
+        arr = {}
         for soft in computer.Win32_Product():
             i += 1
-            # slovar[f'Наименование ПО {i}'] = soft.Caption
-            slovar.update({
-                    f'ПО {i}': {
-                    f'{soft.Caption}': soft.Caption
-                    }
-            })
+            arr[soft.Name] = soft.Vendor
+        slovar['Программное обеспечение'] = arr
 
     def file_output():
         with open(f'c:/getinfo/{computer.Win32_ComputerSystem()[0].Name}.txt', 'a',
@@ -106,6 +94,7 @@ class get_info:
     def json_output():
         with open('result.json', 'w') as fp:
             json.dump(slovar, fp)
+            print('Файл готов')
 
 get_info.name_pc()
 get_info.get_os()
