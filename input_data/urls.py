@@ -17,5 +17,6 @@ urlpatterns = [
     path('get_all_data', views.get_all_equipments),
     path('add_unit', views.form_units),
     path('add_position', views.form_position),
-    path('conf_comp', views.config_computer),
+    path('conf_comp', views.config_computer_manual),
+    path('conf_auto', views.config_computer_auto),
 ]

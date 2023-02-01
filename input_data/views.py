@@ -1,4 +1,12 @@
+import json
 import re
+
+from django.core.exceptions import MultipleObjectsReturned
+from wmi import WMI
+import re
+import subprocess
+import json
+
 
 from django.contrib import messages
 from django.db import IntegrityError
@@ -8,7 +16,13 @@ from django.shortcuts import render
 from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm, \
     EquipmentAddForm, EquipmentsLinkUsers, UnitForm, PositionForm, ConfigComputer
 from .models import *
+from .ps_util_web import *
 
+
+computer = WMI()
+slovar = {}
+slovar2 = {}
+i = 0
 
 def index(request):
     return render(request, 'index.html')
@@ -299,10 +313,11 @@ def form_position(request):
     return render(request, 'form_pos.html', {'form': form})
 
 # функция заполения конфигурации ПК
-def config_computer(request):
+def config_computer_manual(request):
     form = ConfigComputer()
     inv = InvNum.objects.all()
-
+    # dt = json.loads(json_return())
+    # print(dt)
     if request.method == 'POST':
         arr = []
         for items in request.POST:
@@ -315,6 +330,63 @@ def config_computer(request):
 
     return render(request, 'form_config_comp.html', {'form': form, 'inv': inv})
 
+# функция заполнения конфигурации скриптом
+def config_computer_auto(request):
+    form = ConfigComputer()
+    inv = InvNum.objects.all()
+    hard = Hardware.objects.all()
+    dt = json.loads(json_return())
+    arr = []
+    arr.append(dt['Установленная ОС'])
+    arr.append(dt['Статус активации'])
+    arr.append(dt['Пользователь'])
+    arr.append(dt['Сеть']['IP адрес'])
+    arr.append(dt['Сеть']['MAC адрес'])
+    arr.append(dt['Сеть']['Скорость соединения'])
+    arr.append(dt['HDD']['Модель'])
+    arr.append(dt['Производитель'] + '; Модель ' + dt['Модель'])
+    arr.append(dt['Процессор'])
+    arr.append(dt['Соккет'])
+    arr.append(dt['ОЗУ'])
+    arr.append(dt['Имя ПК'])
+
+
+    if request.method == 'POST':
+
+        inv_n = []
+        inv_n.append(request.POST.get('invent'))
+
+
+        e = Hardware.objects.all()
+        r = InvNum.objects.all()
+        for i in hard:
+            tmp = []
+            tmp.append(i.InvNumber.InvNumber)
+
+        if ''.join(inv_n) in tmp:
+            print('такая запись удже есть')
+            return HttpResponse('Такая запись уже есть')
+        else:
+            print('Можно записать')
+
+
+
+            for items in request.POST:
+                a1 = []
+                a1.append(items)
+
+            if ''.join(a1) == 'getnum':
+                Hardware.objects.create(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n)), OperateSystem=arr[0],
+                                                                Activate=arr[1], CurrentUser=arr[2], IPAddress=arr[3], MAC=arr[4],
+                                                                SystemName=arr[11], LANSpeed=arr[5], HDD=arr[6], Mboard=arr[7],
+                                                                ProcessorName=arr[8], Soccet=arr[9], OZU=arr[10])
+
+            return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv,
+                                                                   'form_put': arr})
+
+
+    return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv,
+                                                               'form_put': arr})
 
 # тестовая форма работы со списком
 def form_list(request):

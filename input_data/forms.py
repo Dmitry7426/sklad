@@ -88,6 +88,8 @@ class ConfigComputer(forms.Form):
 
 
 
+
+
 class FormList(forms.Form):
     lst = forms.ChoiceField()
 

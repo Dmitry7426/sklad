@@ -1,0 +1,94 @@
+{% extends "index.html" %}
+
+{% block forms %}
+
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <div><h3>Выбрать инвентарный номер, к которому будут привязаны собранные данные</h3>
+    <select name="invent" size="1">
+         {% for i in inv %}
+            <option value="{{ i.InvNumber }}">
+                {{ i.InvNumber }} {{' - '}} {{ i.typ.TypesEq }}
+                {{ error }}
+            </option>
+        {% endfor %}
+
+    </select>
+
+        <input type="submit" value="Подтвердить и получить данные">
+        <input type="hidden" name="getnum">
+
+
+
+    </div>
+</form>
+
+<br>
+<br>
+
+{{ a }}
+
+
+<table>
+        <tr>
+            <th>ОС</th>
+            <th>Активация</th>
+            <th>Пользователь</th>
+            <th>IP Адрес</th>
+            <th>MAC Адрес</th>
+            <th>Скорость сети</th>
+            <th>HDD</th>
+            <th>Производитель</th>
+            <th>Процессор</th>
+            <th>Соккет</th>
+            <th>Обьем ОЗУ</th>
+        </tr>
+
+        <tr>
+            {% for i in form_put %}
+            <td>{{ i }}</td>
+          {% endfor %}
+        </tr>
+
+    </table>
+<br>
+<br>
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="submit" value="Сохранить">
+    <input type="hidden" name="saves">
+</form>
+
+<h1 class="forms">Конфигурация ПК</h1>
+
+
+<!--<form method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    <div><h3>Выбрать устройство</h3>-->
+<!--    <select name="invent" size="1">-->
+<!--         {% for i in inv %}-->
+<!--            <option value="{{ i.InvNumber }}">-->
+<!--                {{ i.InvNumber }} {{' - '}} {{ i.typ.TypesEq }}-->
+<!--            {{ error }}-->
+<!--            </option>-->
+<!--        {% endfor %}-->
+<!--    </select>-->
+<!--&lt;!&ndash;    <table>&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ form }}&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ error }}&ndash;&gt;-->
+<!--&lt;!&ndash;    </table>&ndash;&gt;-->
+
+<!--    <input type="submit" value="Сохранить">-->
+<!--    </div>-->
+<!--</form>-->
+
+{% endblock %}
