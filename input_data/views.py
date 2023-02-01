@@ -350,31 +350,29 @@ def config_computer_auto(request):
     arr.append(dt['ОЗУ'])
     arr.append(dt['Имя ПК'])
 
-
     if request.method == 'POST':
+        for item in hard:
+            tmp = []
+            tmp.append(item.InvNumber.InvNumber)
+            print('первоначальный ', tmp)
 
         inv_n = []
         inv_n.append(request.POST.get('invent'))
 
-        for i in hard:
-            tmp = []
-            tmp.append(i.InvNumber.InvNumber)
+        for items in request.POST:
+            a1 = []
+            a1.append(items)
 
-        if ''.join(inv_n) in tmp:
-            print('такая запись удже есть')
-            return HttpResponse('Такая запись уже есть')
-        else:
-            print('Можно записать')
-            for items in request.POST:
-                a1 = []
-                a1.append(items)
+        if ''.join(a1) == 'getnum':
+            if Hardware.objects.filter(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n))):
 
-            if ''.join(a1) == 'getnum':
+                return HttpResponse('Такая запись есть')
+            else:
                 Hardware.objects.create(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n)), OperateSystem=arr[0],
                                                                 Activate=arr[1], CurrentUser=arr[2], IPAddress=arr[3], MAC=arr[4],
                                                                 SystemName=arr[11], LANSpeed=arr[5], HDD=arr[6], Mboard=arr[7],
                                                                 ProcessorName=arr[8], Soccet=arr[9], OZU=arr[10])
-
+                print(tmp)
             return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv,
                                                                    'form_put': arr})
 
