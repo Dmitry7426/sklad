@@ -356,9 +356,6 @@ def config_computer_auto(request):
         inv_n = []
         inv_n.append(request.POST.get('invent'))
 
-
-        e = Hardware.objects.all()
-        r = InvNum.objects.all()
         for i in hard:
             tmp = []
             tmp.append(i.InvNumber.InvNumber)
@@ -368,9 +365,6 @@ def config_computer_auto(request):
             return HttpResponse('Такая запись уже есть')
         else:
             print('Можно записать')
-
-
-
             for items in request.POST:
                 a1 = []
                 a1.append(items)
