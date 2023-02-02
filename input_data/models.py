@@ -1,4 +1,4 @@
-from django.core.validators import validate_slug, RegexValidator
+
 from django.db import models
 
 

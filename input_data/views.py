@@ -2,7 +2,7 @@ import json
 import re
 
 from django.core.exceptions import MultipleObjectsReturned
-from wmi import WMI
+# from wmi import WMI
 import re
 import subprocess
 import json
@@ -16,10 +16,10 @@ from django.shortcuts import render
 from .forms import EquipmentsForm, FormList, BrandsForm, ModelsForm, TabForm, UserForm, UserDeleteForm, \
     EquipmentAddForm, EquipmentsLinkUsers, UnitForm, PositionForm, ConfigComputer
 from .models import *
-from .ps_util_web import *
+# from .ps_util_web import *
 
 
-computer = WMI()
+# computer = WMI()
 slovar = {}
 slovar2 = {}
 i = 0
@@ -335,50 +335,59 @@ def config_computer_auto(request):
     form = ConfigComputer()
     inv = InvNum.objects.all()
     hard = Hardware.objects.all()
-    dt = json.loads(json_return())
-    arr = []
-    arr.append(dt['Установленная ОС'])
-    arr.append(dt['Статус активации'])
-    arr.append(dt['Пользователь'])
-    arr.append(dt['Сеть']['IP адрес'])
-    arr.append(dt['Сеть']['MAC адрес'])
-    arr.append(dt['Сеть']['Скорость соединения'])
-    arr.append(dt['HDD']['Модель'])
-    arr.append(dt['Производитель'] + '; Модель ' + dt['Модель'])
-    arr.append(dt['Процессор'])
-    arr.append(dt['Соккет'])
-    arr.append(dt['ОЗУ'])
-    arr.append(dt['Имя ПК'])
+    # dt = json.loads(json_return())  # для чтения из библиотеки
+    with open('result.json', 'r') as file:
+        dt = json.load(file)
 
-    if request.method == 'POST':
-        for item in hard:
-            tmp = []
-            tmp.append(item.InvNumber.InvNumber)
-            print('первоначальный ', tmp)
+        arr = []
+        soft = []
+        arr.append(dt['Установленная ОС'])
+        arr.append(dt['Статус активации'])
+        arr.append(dt['Пользователь'])
+        arr.append(dt['Сеть']['IP адрес'])
+        arr.append(dt['Сеть']['MAC адрес'])
+        arr.append(dt['Сеть']['Скорость соединения'])
+        arr.append(dt['HDD']['Модель'])
+        arr.append(dt['Производитель'] + '; Модель ' + dt['Модель'])
+        arr.append(dt['Процессор'])
+        arr.append(dt['Соккет'])
+        arr.append(dt['ОЗУ'])
+        arr.append(dt['Имя ПК'])
 
-        inv_n = []
-        inv_n.append(request.POST.get('invent'))
-
-        for items in request.POST:
-            a1 = []
-            a1.append(items)
-
-        if ''.join(a1) == 'getnum':
-            if Hardware.objects.filter(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n))):
-
-                return HttpResponse('Такая запись есть')
-            else:
-                Hardware.objects.create(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n)), OperateSystem=arr[0],
-                                                                Activate=arr[1], CurrentUser=arr[2], IPAddress=arr[3], MAC=arr[4],
-                                                                SystemName=arr[11], LANSpeed=arr[5], HDD=arr[6], Mboard=arr[7],
-                                                                ProcessorName=arr[8], Soccet=arr[9], OZU=arr[10])
-                print(tmp)
-            return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv,
-                                                                   'form_put': arr})
+        for key, value in dt['Программное обеспечение'].items():
+            soft.append(key)
+        if request.method == 'POST':
+            for item in hard:
+                tmp = []
+                tmp.append(item.InvNumber.InvNumber)
 
 
-    return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv,
-                                                               'form_put': arr})
+            inv_n = []
+            inv_n.append(request.POST.get('invent'))
+
+            for items in request.POST:
+                a1 = []
+                a1.append(items)
+
+            if ''.join(a1) == 'getnum':
+                if Hardware.objects.filter(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n))):
+
+                    return HttpResponse('<h2>Такая запись есть!</h2><h3><a href="/input_data/conf_auto">Вернуться назад</h3>')
+                else:
+                    Hardware.objects.create(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n)), OperateSystem=arr[0],
+                                                                    Activate=arr[1], CurrentUser=arr[2], IPAddress=arr[3], MAC=arr[4],
+                                                                    SystemName=arr[11], LANSpeed=arr[5], HDD=arr[6], Mboard=arr[7],
+                                                                    ProcessorName=arr[8], Soccet=arr[9], OZU=arr[10])
+
+                return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv, 'dt': dt,
+                                                                       'form_put': arr, 'soft': soft})
+
+
+    return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv, 'dt': dt,
+                                                                   'form_put': arr, 'soft': soft})
+
+def config_computer_file(request):
+    return HttpResponse('<h1>Данная страница находится в разработке!!<h1> <h2><a href="/">На главную</h2>')
 
 # тестовая форма работы со списком
 def form_list(request):

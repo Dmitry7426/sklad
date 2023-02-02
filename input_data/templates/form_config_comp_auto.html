@@ -13,6 +13,8 @@
 <form method="POST">
     {% csrf_token %}
     <div><h3>Выбрать инвентарный номер, к которому будут привязаны собранные данные</h3>
+        <h3>Будьте внимательны - инвентарный номер следует выбирать для ЭТОГО локального ПК!!!
+        Информация собирается для текущего рабочего места!</h3>
     <select name="invent" size="1">
          {% for i in inv %}
             <option value="{{ i.InvNumber }}">
@@ -34,9 +36,6 @@
 <br>
 <br>
 
-{{ a }}
-
-
 <table>
         <tr>
             <th>ОС</th>
@@ -55,20 +54,35 @@
         <tr>
             {% for i in form_put %}
             <td>{{ i }}</td>
-          {% endfor %}
+            {% endfor %}
         </tr>
 
     </table>
+
+<table>
+    <tr>
+        <td>Программное обеспечение</td>
+    </tr>
+    <tr>
+        <td>
+        {% for item in soft %}
+        {{ item|linebreaks }}
+        {% endfor %}
+        </td>
+    </tr>
+</table>
+
+{% for key, value in dt.items %}
+{{ key }}
+{% endfor %}
+{% for item in value %}
+{{ item }}
+{% endfor %}
 <br>
 <br>
-<form method="POST">
-    {% csrf_token %}
 
-    <input type="submit" value="Сохранить">
-    <input type="hidden" name="saves">
-</form>
 
-<h1 class="forms">Конфигурация ПК</h1>
+
 
 
 <!--<form method="POST">-->
