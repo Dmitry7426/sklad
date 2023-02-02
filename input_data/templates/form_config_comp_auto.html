@@ -36,48 +36,55 @@
 <br>
 <br>
 
+<hr>
 <table>
-        <tr>
-            <th>ОС</th>
-            <th>Активация</th>
-            <th>Пользователь</th>
-            <th>IP Адрес</th>
-            <th>MAC Адрес</th>
-            <th>Скорость сети</th>
-            <th>HDD</th>
-            <th>Производитель</th>
-            <th>Процессор</th>
-            <th>Соккет</th>
-            <th>Обьем ОЗУ</th>
-        </tr>
-
-        <tr>
-            {% for i in form_put %}
-            <td>{{ i }}</td>
-            {% endfor %}
-        </tr>
-
-    </table>
-
-<table>
+    {% for key, value in dt.items %}
     <tr>
-        <td>Программное обеспечение</td>
+
+        <td>
+
+            {{ key }}
+
+        </td>
+
+        <td>
+
+            {% for i, j in value.items %}
+            {{i|linebreaks}}
+            {{ j|linebreaks }}
+            {% endfor %}
+        </td>
+
+
+
+
+
+
+
+
     </tr>
+
+           {% endfor %}
+
+</table>
+
+<hr>
+<table>
+    {% for i in dt %}
+    {% for k, v in i.items %}
     <tr>
         <td>
-        {% for item in soft %}
-        {{ item|linebreaks }}
-        {% endfor %}
+
+                {{k}}
+
+                {%endfor%}
+
+
+
+            {% endfor %}
         </td>
     </tr>
 </table>
-
-{% for key, value in dt.items %}
-{{ key }}
-{% endfor %}
-{% for item in value %}
-{{ item }}
-{% endfor %}
 <br>
 <br>
 

@@ -14,6 +14,7 @@ def test():
     return json.dumps(w)
 
 def get_activate():
+    arr = {}
     act = subprocess.Popen("powershell.exe -ExecutionPolicy ByPass -File act.ps1", stdout=subprocess.PIPE)
     p = act.communicate()
     w = str(p)
@@ -22,12 +23,15 @@ def get_activate():
         acivations = 'Да'
     else:
         acivations = 'Нет'
-    slovar['Статус активации'] = acivations
+    arr['Активация системы'] = acivations
+    slovar['Статус активации'] = arr
     data = json.dumps(slovar)
     return data
 
 def name_pc():
-    slovar['Имя ПК'] = computer.Win32_ComputerSystem()[0].Name
+    arr = {}
+    arr['Сетевое имя'] = computer.Win32_ComputerSystem()[0].Name
+    slovar['Имя ПК'] = arr
     data = json.dumps(slovar)
     return data
 
@@ -50,32 +54,35 @@ def get_network():
     return data
 
 def get_user():
-
-    slovar['Пользователь'] = computer.Win32_ComputerSystem()[0].UserName
+    arr = {}
+    arr['Имя'] = computer.Win32_ComputerSystem()[0].UserName
+    slovar['Текущий пользователь'] = arr
     data = json.dumps(slovar)
     return data
 
 def get_os():
-
-    slovar['Установленная ОС'] = computer.Win32_OperatingSystem()[0].Caption
+    arr = {}
+    arr['Наименование'] = computer.Win32_OperatingSystem()[0].Caption
+    slovar['Установленная система'] = arr
     data = json.dumps(slovar)
     return data
 
 def get_hardware():
     arr = {}
     i = 0
-    slovar['Производитель'] = computer.Win32_BaseBoard()[0].Manufacturer
-    slovar['Модель'] = computer.Win32_BaseBoard()[0].Product
-    slovar['Процессор'] = computer.Win32_Processor()[0].Name
-    slovar['Соккет'] = computer.Win32_Processor()[0].SocketDesignation
-    slovar['ОЗУ'] = round(int(computer.Win32_OperatingSystem()[0].TotalVisibleMemorySize) / 1024 / 1024)
+    arr['Производитель MBoard'] = computer.Win32_BaseBoard()[0].Manufacturer
+    arr['Модель MBoard'] = computer.Win32_BaseBoard()[0].Product
+    arr['Процессор'] = computer.Win32_Processor()[0].Name
+    arr['Соккет'] = computer.Win32_Processor()[0].SocketDesignation
+    arr['ОЗУ'] = round(int(computer.Win32_OperatingSystem()[0].TotalVisibleMemorySize) / 1024 / 1024)
+    # slovar['Кофигурация ПК'] = arr
     for hdd in computer.Win32_DiskDrive():
         hdd_size = int(int(hdd.Size) / 1024 / 1024 / 1024)
         if hdd.Caption:
-            arr['Модель'] = hdd.Model
+            arr['Модель HDD'] = hdd.Model
             arr['Обьем'] = int(int(hdd.Size) / 1024 / 1024 / 1024)
 
-    slovar['HDD'] = arr
+    slovar['Конфигурация ПК'] = arr
             # slovar['Производитель'] = hdd.Model
             # slovar['Емкость диска'] = hdd_size
             # slovar.update({
