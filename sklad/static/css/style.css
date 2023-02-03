@@ -1,19 +1,151 @@
-
+* {
+    text-decoration: none;
+}
 .test {
     color: blue;
 }
 
 .wrapper {
     display: inline-flex;
-    
+   
 }
 
 ul, li {
     list-style: none;
     text-align: left;
+    padding: 5px;
 }
 .top {
     display: inline-flex;
+    width: min-content;
 }
 
+.wrap {
+    display: flex;
+   
 
+    width: 98vmax;
+    height: 90px;
+    
+    text-decoration: none;
+    background: yellow;
+    text-decoration: none;
+    border: blue 3px solid;
+    border-top-left-radius: 45px 25%;
+    border-bottom-right-radius: 45px 25%;
+}
+
+.one {
+    
+    width: 98vmax;
+    flex-direction:column;
+    text-decoration: none;
+    width: max-content;
+}
+.topmenu {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    color: darkblue;
+    background: rgb(141, 212, 206);
+    font-size: 1.5em;
+    font-style: oblique;
+    border: 2px rgb(241, 187, 37) solid;
+    border-top-left-radius: 14px ;
+    border-bottom-right-radius: 14px ;
+    padding: 5px;
+    text-shadow: 2px 2px 4px white;
+    transition: 0.5s;
+    margin-left: 15px;
+    text-decoration: none;
+}
+.topmenu:hover {
+    transition: 0.5s;
+    transform: scale(115%);
+    
+}
+
+.menu {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    color: darkblue;
+    background: rgb(141, 212, 206);
+    font-size: 1.2em;
+    font-style: oblique;
+    border: 2px rgb(241, 187, 37) solid;
+    border-top-left-radius: 14px ;
+    border-bottom-right-radius: 14px ;
+    padding: 5px;
+    text-shadow: 2px 2px 4px white;
+    transition: 0.5s;
+    margin-left: 15px;
+    text-decoration: none;
+    padding-left: 15px;
+}
+.menu:hover {
+    transition: 0.5s;
+    transform: scale(115%);
+    
+}
+.two{
+    opacity: 0;
+}
+.one:hover >.two {
+    opacity: 1;
+    
+}
+
+/* Обработка стилей в шаблонах */
+.h1 {
+    color: darkblue;
+    font-size: 32px;
+    font-style: italic;
+    text-align: center;
+    padding: 1%;
+}
+.users {
+    background: rgb(0, 255, 242);
+    text-align: left;
+    padding: 5%;
+    height: auto;
+    border: black solid 2px;
+    width: max-content;
+    margin: 0 auto;
+}
+.option {
+    width: 250px;
+}
+.button {
+    
+    display: flex;
+    box-shadow: 0px 0px 2px 2px gray;
+    padding: 1%;
+    margin: 0 auto;
+    transition: 0.5s;
+    border: none;
+    transform: scale(1.2);
+}
+.button:hover {
+    transition: 0.5s;
+    transform: scale(1.4);
+    border: none;
+    box-shadow: 0px 0px 2px 2px gray;
+
+}
+
+@media  (max-width: 600px) {
+    .wrap {
+        border: none;
+        display: flexbox;
+        flex-direction: column;
+        opacity: 10;
+    }
+    
+    * {
+        background: yellow;
+        
+        transform: scale(90%);
+        
+    }
+}

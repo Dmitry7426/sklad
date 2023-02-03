@@ -9,7 +9,9 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1 class="forms">Пользователи</h1>
+
+<h1 class="h1">Сотрудник</h1>
+<div class="users">
 
 <form method="POST">
     {% csrf_token %}
@@ -19,7 +21,7 @@
     </table>
 
 <div><h3>Подразделение</h3>
-    <select name="unit" size="1">
+    <select class="option" name="unit" size="1">
         {% for i in unit %}
             <option value="{{ i.UnitName }}">
                 {{ i.UnitName }}
@@ -32,9 +34,9 @@
  </div>
 
 <div><h3>Должность</h3>
-    <select name="position" size="1">
+    <select class="option" name="position" size="1">
         {% for i in pos %}
-            <option value="{{ i.PositionName }}">
+            <option alue="{{ i.PositionName }}">
                 {{ i.PositionName }}
             {{ error }}
             </option>
@@ -43,7 +45,8 @@
     <br>
      <br>
  </div>
-    <input type="submit" value="Сохранить" pattern="[А-Яа-я]">
+    <input class="button" type="submit" value="Сохранить" pattern="[А-Яа-я]">
 </form>
+</div>
 
 {% endblock %}
