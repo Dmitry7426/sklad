@@ -9,16 +9,19 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1 class="forms">Должность</h1>
+<h1 class="h1">Должность</h1>
 
+<div class="users">
+    <h3>Введите наименование должности:</h3>
 <form method="POST">
     {% csrf_token %}
     <table>
         {{ form }}
         {{ error }}
     </table>
+    <br><br>
+    <input class="button" type="submit" value="Сохранить">
 
-    <input type="submit" value="Сохранить">
 </form>
-
+</div>
 {% endblock %}

@@ -4,13 +4,15 @@
 
 
 {% block forms %}
-<h1 class="forms">Форма регистрации</h1>
+<h1 class="h1">Форма регистрации</h1>
+<div class="users">
 <form method="POST">
     {% csrf_token %}
     <table>
         {{ form }}
     </table>
-    <input type="submit" value="Регистрация">
+    <br><br>
+    <input class="button" type="submit" value="Регистрация">
 </form>
-
+</div>
 {% endblock %}

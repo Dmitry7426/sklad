@@ -11,7 +11,8 @@
 {% endif %}
 
 
-<h1 class="forms">Постановка на учет оборудования</h1>
+<h1 class="h1">Постановка на учет оборудования</h1>
+<div class="users">
 <form method="POST">
     {% csrf_token %}
 <!--    Формирование списка выбора инвентарного номера  -->
@@ -39,7 +40,7 @@
 
     <br>
     <br>
-    <input type="submit" value="Записать">
+    <input class="button" type="submit" value="Записать">
 
 
 
@@ -49,6 +50,7 @@
         </div>
 </div>
 </form>
+</div>
 <br>
 <br>
 {% endblock %}

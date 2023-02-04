@@ -11,8 +11,9 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1 class="forms">Вход в систему</h1>
+<h1 class="h1">Вход в систему</h1>
 {{ error }}
+<div class="users">
 <form method="POST">
     {% csrf_token %}
     <table>
@@ -20,7 +21,9 @@
         {{ form }}
         {{ error }}
     </table>
-    <input type="submit" value="Войти">
+    <br><br>
+    <input class="button" type="submit" value="Войти">
 </form>
+</div>
 {% endif %}
 {% endblock %}

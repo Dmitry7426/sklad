@@ -144,7 +144,7 @@ def form_delete_user(request):
         allobj = Users.objects.all()
         name = []
         for i in allobj:
-            name.append(i.UserName + ', ' + i.MidlName + ', ' + i.SurName + ', ' + i.Position.PositionName)
+            name.append(i.SurName + ', ' + i.UserName + ', ' + i.MidlName + ', ' + i.Position.PositionName + ', ' + i.Unit.UnitName)
         if request.method == 'POST':
             if request.POST.get('select'):
                 lst = request.POST.get('select')
@@ -268,23 +268,6 @@ def get_all_equipments(request):
         # print(i.Number.netname)
     return render(request, 'get_all_equipments.html', {'form': form, 'data': get_all})
 
-# функция выбора техники по параметрам
-
-# выбор по подразделениям
-def get_units(request):
-    pass
-
-# выбор по человеку
-def get_user(request):
-    pass
-
-# выбор по бренду
-def get_brand(request):
-    pass
-
-# выбор по конкретному типу
-def get_type(request):
-    pass
 
 # форма ввода подразделения
 def form_units(request):

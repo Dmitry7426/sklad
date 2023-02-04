@@ -30,7 +30,7 @@
             <li><a class="menu" href="/input_data/add_position">Должности </a></li>
             <li><a class="menu" href="/input_data/form_users">Регистрация нового пользователя </a></li>
             <li><a class="menu" href="/input_data/delete_user">Удалить пользователя </a></li>
-        
+                
         </div>
         </div>
 
@@ -49,28 +49,46 @@
             <li><a class="menu" href="/input_data/get_all_data">Вся техника по складу</a></li>
         </div>
         </div>    
+    
+       
+          
+    <div class="log_in_out">    
 
-    <ul>
-        <li>
             {% if user.is_authenticated %}
-            <li><p>{{ user.get_username }} сейчас в системе | <a href="{% url 'logout' %}">Выйти</a></p></li>
+            <div><p class="menu">{{ user.get_username }} сейчас в системе &nbsp</p></div>
+            <div><p><a href="{% url 'logout' %}">Выйти</a></p></div>
             {% else %}
-            <a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
-            {% endif %}
-        </li>
-    </ul>
+      
 
+            <div><p><a href="{% url 'register' %}">Регистрация &nbsp</a></p></div>
+
+            <div><p><a href="{% url 'login' %}"> Войти</a></p></div>
+            {% endif %}
+        
+    </div>
+
+  
 
 </div>
 
-    <h1 class="test">TEST!!! Главная страница</h1>
+    
+
+{% block welkome %}
 
 {% if user.is_authenticated %}
-    <h3>Активный пользователь {{ user.get_username }}</h3>
+    <h3>Добро пожаловать в систему {{ user.get_username }} ! </h3>
     <h3><a href="{% url 'logout' %}">Выйти</a></h3>
 {% else %}
-    <h3>Нет вошедшего пользователя</h3>
+    <div class="warn">
+        <h3>Вы не вошли в систему! Функции для работы со справочниками доступны только зарегестрированным пользователям!</h3>
+        
+
+    </div>    
+
+    
 {% endif %}
+
+{% endblock %}
 
 <div class="content">
 {% block content %}

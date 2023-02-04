@@ -9,8 +9,8 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1 class="forms">Добавление нового оборудования</h1>
-
+<h1 class="h1">Добавление нового оборудования</h1>
+<div class="users">
 <form method="POST">
     {% csrf_token %}
     <table>
@@ -53,10 +53,10 @@
     <br>
      <br>
 
-    <input type="submit" value="Сохранить">
+    <input class="button" type="submit" value="Сохранить">
  </div>
 </div>
     </div>
 </form>
-
+</div>
 {% endblock %}

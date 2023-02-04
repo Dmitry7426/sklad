@@ -9,7 +9,8 @@
     {% endfor %}
 </ul>
 {% endif %}
-<h1 class="forms">Конфигурация ПК</h1>
+<h1 class="h1">Конфигурация ПК</h1>
+<div class="users">
 
 <form method="POST">
     {% csrf_token %}
@@ -25,12 +26,13 @@
 
 
     <table>
+
         {{ form }}
         {{ error }}
     </table>
-
-    <input type="submit" value="Сохранить">
+    <br><br>
+    <input class="button" type="submit" value="Сохранить">
     </div>
 </form>
-
+</div>
 {% endblock %}

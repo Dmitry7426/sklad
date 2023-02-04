@@ -1,5 +1,14 @@
 * {
     text-decoration: none;
+    
+}
+body {
+    background-image: url('../img/fon_kub.jpg');
+    opacity: 0.8;
+}
+
+a {
+    color: darkblue;
 }
 .test {
     color: blue;
@@ -13,111 +22,161 @@
 ul, li {
     list-style: none;
     text-align: left;
-    padding: 5px;
+    
 }
-.top {
-    display: inline-flex;
-    width: min-content;
-}
+
 
 .wrap {
     display: flex;
-   
+    
 
-    width: 98vmax;
-    height: 90px;
+    width: 97vmax;
+    height: 8vmax;
     
     text-decoration: none;
-    background: yellow;
-    text-decoration: none;
+    background: linear-gradient(15deg, rgb(255, 255, 255), rgb(0, 255, 242));
+    
     border: blue 3px solid;
     border-top-left-radius: 45px 25%;
     border-bottom-right-radius: 45px 25%;
 }
 
 .one {
-    
+   
     width: 98vmax;
     flex-direction:column;
     text-decoration: none;
     width: max-content;
+    z-index: 99;
 }
+
 .topmenu {
-    width: max-content;
+    width: 10vmax;
     height: max-content;
     display: flex;
     color: darkblue;
-    background: rgb(141, 212, 206);
-    font-size: 1.5em;
+    background: rgb(255, 253, 142);
+    font-size: 1.4vmax;
     font-style: oblique;
     border: 2px rgb(241, 187, 37) solid;
     border-top-left-radius: 14px ;
     border-bottom-right-radius: 14px ;
-    padding: 5px;
+    padding: 0.3vmax;
+    padding-left: 8px;
     text-shadow: 2px 2px 4px white;
     transition: 0.5s;
-    margin-left: 15px;
-    text-decoration: none;
+    margin-left: 1vmax;
+    
+    text-align: left;
 }
 .topmenu:hover {
     transition: 0.5s;
     transform: scale(115%);
     
 }
+.log_in_out{
+    position:relative;
+    display: flex;
+    padding: 5px;
+    font-size: 1.3vmax;
+    margin-left: 2vmax;
+    justify-content: end;
+}
 
 .menu {
-    width: max-content;
+    width: 15vmax;
     height: max-content;
     display: flex;
     color: darkblue;
-    background: rgb(141, 212, 206);
-    font-size: 1.2em;
+    background: rgb(255, 253, 142);
+    font-size: 1.2vmax;
     font-style: oblique;
     border: 2px rgb(241, 187, 37) solid;
     border-top-left-radius: 14px ;
     border-bottom-right-radius: 14px ;
-    padding: 5px;
+    padding: 0.1vmax;
     text-shadow: 2px 2px 4px white;
     transition: 0.5s;
-    margin-left: 15px;
+    
     text-decoration: none;
     padding-left: 15px;
+    text-align: left;
+    z-index: 1;
 }
+
 .menu:hover {
     transition: 0.5s;
     transform: scale(115%);
-    
+    opacity: 1;
+   
 }
 .two{
     opacity: 0;
+    
 }
 .one:hover >.two {
     opacity: 1;
+   
     
 }
 
 /* Обработка стилей в шаблонах */
+.getinftable {
+    border-collapse: collapse;
+    border: 3px darkblue solid;
+    background: rgb(108, 171, 255);
+}
+.gettr {
+    border: 3px darkblue solid;
+}
+.gettd {
+    border: 2px gray dotted;
+}
 .h1 {
-    color: darkblue;
+    color: rgb(1, 0, 43);
+    text-shadow: 0px 0px 3px yellow;
     font-size: 32px;
     font-style: italic;
     text-align: center;
     padding: 1%;
+    z-index: 1;
 }
+.warn {
+    background: rgb(160, 115, 115);
+    height: 50%;
+    width: max-content;
+    padding: 5px;
+    color: black;
+    display: flex;
+    flex: content;
+    justify-content: center;
+    margin: 0 auto;
+    border: 5px solid red;
+    animation: any 2s ease-in-out infinite;
+    animation-direction: alternate-reverse;
+       
+}
+
+@keyframes any {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
 .users {
-    background: rgb(0, 255, 242);
+    background: rgb(160, 217, 255);
     text-align: left;
     padding: 5%;
-    height: auto;
+    height: max-content;
     border: black solid 2px;
-    width: max-content;
+    width: 50vmax;
     margin: 0 auto;
+   
 }
 .option {
     width: 250px;
 }
 .button {
-    
+    margin-top: 15px;
     display: flex;
     box-shadow: 0px 0px 2px 2px gray;
     padding: 1%;
@@ -125,27 +184,33 @@ ul, li {
     transition: 0.5s;
     border: none;
     transform: scale(1.2);
+    width: 30%;
+    text-align: center;
 }
 .button:hover {
     transition: 0.5s;
     transform: scale(1.4);
     border: none;
     box-shadow: 0px 0px 2px 2px gray;
-
+    text-align: center;
+}
+input{
+    width: 90%;
+    text-align: left;
+}
+.form_dj {
+    width: 90%;
+    text-align: center;
 }
 
-@media  (max-width: 600px) {
-    .wrap {
-        border: none;
-        display: flexbox;
-        flex-direction: column;
-        opacity: 10;
+
+@media  (max-width: 750px) {
+
+    img {
+        display: none;
     }
+
     
-    * {
-        background: yellow;
-        
-        transform: scale(90%);
-        
-    }
+    
+  
 }

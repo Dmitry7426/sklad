@@ -10,11 +10,15 @@
 </ul>
 {% endif %}
 
-<form method="POST">
-    {% csrf_token %}
-    <div><h3>Выбрать инвентарный номер, к которому будут привязаны собранные данные</h3>
-        <h3>Будьте внимательны - инвентарный номер следует выбирать для ЭТОГО локального ПК!!!
+
+        <h3 class="h1">Будьте внимательны - инвентарный номер следует выбирать для ЭТОГО локального ПК!!!
         Информация собирается для текущего рабочего места!</h3>
+        <p class="h1">Проверьте информацию в таблице ниже - и если все верно - подтвердите и запишите данные!</p>
+
+<div class="users">
+    <form method="POST">
+    {% csrf_token %}
+
     <select name="invent" size="1">
          {% for i in inv %}
             <option value="{{ i.InvNumber }}">
@@ -25,29 +29,30 @@
 
     </select>
 
-        <input type="submit" value="Подтвердить и получить данные">
+        <input class="button" type="submit" value="Подтвердить и записать">
         <input type="hidden" name="getnum">
 
 
 
-    </div>
 </form>
+    </div>
 
-<br>
-<br>
+
 
 <hr>
-<table>
+<div class="users">
+    <h3>Собранная конфигурация этого ПК:</h3>
+<table class="getinftable">
     {% for key, value in dt.items %}
-    <tr>
+    <tr class="gettr">
 
-        <td>
+        <td class="gettd">
 
             {{ key }}
 
         </td>
 
-        <td>
+        <td class="gettd">
 
             {% for i, j in value.items %}
             {{i|linebreaks}}
@@ -55,25 +60,17 @@
             {% endfor %}
         </td>
 
-
-
-
-
-
-
-
     </tr>
 
            {% endfor %}
 
 </table>
-
 <hr>
-<table>
+<table class="getinftable">
     {% for i in dt %}
     {% for k, v in i.items %}
-    <tr>
-        <td>
+    <tr class="gettr">
+        <td class="gettd">
 
                 {{k}}
 
@@ -85,31 +82,8 @@
         </td>
     </tr>
 </table>
-<br>
-<br>
+</div>
 
 
-
-
-
-<!--<form method="POST">-->
-<!--    {% csrf_token %}-->
-<!--    <div><h3>Выбрать устройство</h3>-->
-<!--    <select name="invent" size="1">-->
-<!--         {% for i in inv %}-->
-<!--            <option value="{{ i.InvNumber }}">-->
-<!--                {{ i.InvNumber }} {{' - '}} {{ i.typ.TypesEq }}-->
-<!--            {{ error }}-->
-<!--            </option>-->
-<!--        {% endfor %}-->
-<!--    </select>-->
-<!--&lt;!&ndash;    <table>&ndash;&gt;-->
-<!--&lt;!&ndash;        {{ form }}&ndash;&gt;-->
-<!--&lt;!&ndash;        {{ error }}&ndash;&gt;-->
-<!--&lt;!&ndash;    </table>&ndash;&gt;-->
-
-<!--    <input type="submit" value="Сохранить">-->
-<!--    </div>-->
-<!--</form>-->
 
 {% endblock %}
