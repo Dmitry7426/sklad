@@ -1,7 +1,7 @@
-import regex as regex
+
 from django import forms
 from django.core.validators import validate_slug, validate_unicode_slug, RegexValidator
-import re
+
 
 # Форма типов оборудования
 class EquipmentsForm(forms.Form):

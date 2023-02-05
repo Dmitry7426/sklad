@@ -143,8 +143,9 @@ ul, li {
 }
 .warn {
     background: rgb(160, 115, 115);
-    height: 50%;
-    width: max-content;
+    height: auto;
+    width: 50vmax;
+    font-size: 1.3vmax;
     padding: 5px;
     color: black;
     display: flex;
