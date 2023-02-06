@@ -63,7 +63,7 @@ def form_tabs(request):
             if form.is_valid():
                 t = request.POST.get('name')
                 try:
-                    types = Brands.objects.create(BrandName=t)
+                    types = TypesEquipments.objects.create(TypesEq=t)
                     types.save()
                     return HttpResponse(f'<br><h1>{t} успешно добавлен в справочник!</h1></h1><br><br></h2><a href="/input_data/form_tabs"> '
                             f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
@@ -96,7 +96,7 @@ def form_tabs(request):
             if form.is_valid():
                 t = request.POST.get('name')
                 try:
-                    types = Brands.objects.create(BrandName=t)
+                    types = Models.objects.create(ModelName=t)
                     types.save()
                     return HttpResponse(f'<br><h1>{t} успешно добавлен в справочник!</h1></h1><br><br></h2><a href="/input_data/form_tabs"> '
                             f'Повторить ввод</a><br><br><a href="/">Вернуться на главную</a>')
