@@ -3,7 +3,7 @@ import re
 import subprocess
 import json
 
-computer = WMI()
+computer = WMI("10.11.1.65")
 slovar = {}
 slovar2 = {}
 i = 0

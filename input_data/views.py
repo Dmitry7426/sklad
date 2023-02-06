@@ -1,5 +1,6 @@
 import json
 import re
+import socket
 
 from django.core.exceptions import MultipleObjectsReturned
 # from wmi import WMI
@@ -323,7 +324,7 @@ def config_computer_auto(request):
     dt = json.loads(json_return())  # для чтения из библиотеки
     # with open('result.json', 'r') as file:
     #     dt = json.load(file)
-
+    print(request.META["REMOTE_ADDR"])
     arr = []
     soft = []
 
