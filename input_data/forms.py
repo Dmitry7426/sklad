@@ -83,14 +83,12 @@ class ConfigComputer(forms.Form):
     InstalledSoft = forms.CharField(label='Софт', required=False)
 
 
-
-
-
-
-
-
-
 class FormList(forms.Form):
     lst = forms.ChoiceField()
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
+
 
 

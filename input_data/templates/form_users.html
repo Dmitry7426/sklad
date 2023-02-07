@@ -10,6 +10,8 @@
 </ul>
 {% endif %}
 
+{% if user.is_authenticated %}
+
 <h1 class="h1">Сотрудник</h1>
 <div class="users">
 
@@ -47,6 +49,14 @@
  </div>
     <input class="button" type="submit" value="Сохранить" pattern="[А-Яа-я]">
 </form>
+
 </div>
+
+{% else %}
+
+<h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
+
+{% endif %}
 
 {% endblock %}

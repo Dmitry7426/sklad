@@ -12,6 +12,8 @@
 
 
 
+{% if user.is_authenticated %}
+
 
 
 <h1 class="h1">Подразделения</h1>
@@ -26,10 +28,11 @@
     </table>
     <br>
     <br>
-{% if user.is_authenticated %}
+
     <input class="button" type="submit" value="Сохранить">
 {% else %}
-    <input class="button" type="button" value="Сохранить">
+   <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
 
 {% endif %}
 </form>

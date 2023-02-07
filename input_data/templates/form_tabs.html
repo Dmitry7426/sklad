@@ -2,7 +2,7 @@
 
 
 {% block content %}
-
+{% if user.is_authenticated %}
 
 <h1 class="h1">Справочник типов, моделей, брендов оборудования</h1>
 <div class="users">
@@ -68,6 +68,10 @@
     </div>
 </div>
 </div>
+{% else %}
+ <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
 
+
+{% endif %}
 
 {% endblock %}

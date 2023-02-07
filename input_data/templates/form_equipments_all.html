@@ -10,6 +10,7 @@
 </ul>
 {% endif %}
 
+{% if user.is_authenticated %}
 
 <h1 class="h1">Постановка на учет оборудования</h1>
 <div class="users">
@@ -53,4 +54,11 @@
 </div>
 <br>
 <br>
+
+{% else %}
+   <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
+
+{% endif %}
+
 {% endblock %}

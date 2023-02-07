@@ -9,6 +9,9 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+{% if user.is_authenticated %}
+
 <h1 class="h1">Добавление нового оборудования</h1>
 <div class="users">
 <form method="POST">
@@ -59,4 +62,10 @@
     </div>
 </form>
 </div>
+
+{% else %}
+   <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
+
+{% endif %}
 {% endblock %}

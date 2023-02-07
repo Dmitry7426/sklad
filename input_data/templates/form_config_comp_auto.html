@@ -9,11 +9,22 @@
     {% endfor %}
 </ul>
 {% endif %}
-
+{% if user.is_authenticated %}
 
         <h3 class="h1">Будьте внимательны - инвентарный номер следует выбирать для ЭТОГО локального ПК!!!
         Информация собирается для текущего рабочего места!</h3>
         <p class="h1">Проверьте информацию в таблице ниже - и если все верно - подтвердите и запишите данные!</p>
+
+<form method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+
+
+
+
+
+
+<input type="submit" name="onclick" id="onclick" value="Получить">
+</form>
 
 <div class="users">
     <form method="POST">
@@ -84,6 +95,11 @@
 </table>
 </div>
 
+{% else %}
+   <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
+
+{% endif %}
 
 
 {% endblock %}

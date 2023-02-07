@@ -3,15 +3,12 @@ import re
 import subprocess
 import json
 
-computer = WMI("10.11.1.65")
+
+computer = WMI('10.11.4.249')
 slovar = {}
 slovar2 = {}
 i = 0
 
-
-def test():
-    w = {'testsssss': 'ggfdd'}
-    return json.dumps(w)
 
 def get_activate():
     arr = {}
@@ -44,11 +41,11 @@ def get_network():
     for net in computer.Win32_NetworkAdapterConfiguration():
         if net.IPAddress:
             i += 1
-            ip = net.IPAddress[0]
+            ip = net.IPAddress
     arr[f'Сетевой адаптер'] = net.Description
-    arr['MAC адрес'] = net.MACAddress
-    arr['IP адрес'] = ip
-    arr['Скорость соединения'] = speed
+    arr[f'MAC адрес'] = net.MACAddress
+    arr[f'IP адрес'] = ip
+    arr[f'Скорость соединения'] = speed
     slovar['Сеть'] = arr
     data = json.dumps(slovar)
     return data
@@ -79,8 +76,9 @@ def get_hardware():
     for hdd in computer.Win32_DiskDrive():
         hdd_size = int(int(hdd.Size) / 1024 / 1024 / 1024)
         if hdd.Caption:
-            arr['Модель HDD'] = hdd.Model
-            arr['Обьем'] = int(int(hdd.Size) / 1024 / 1024 / 1024)
+            i += 1
+            arr[f'Модель HDD {i}'] = hdd.Model
+            arr[f'Обьем {i}'] = int(int(hdd.Size) / 1024 / 1024 / 1024)
 
     slovar['Конфигурация ПК'] = arr
             # slovar['Производитель'] = hdd.Model
@@ -126,7 +124,12 @@ def file_output():
             file_out.writelines(f'{key}: {val}; \n')
 
 def json_output_file():
-    with open('result.json', 'w') as fp:
+    i = 0
+    for net in computer.Win32_NetworkAdapterConfiguration():
+        if net.IPAddress:
+            i += 1
+            ip = net.IPAddress[0]
+    with open(f'//winwsus/inv21/inv_new/{ip}.json', 'w') as fp:
         json.dump(slovar, fp)
     print('Файл готов')
 
@@ -140,6 +143,8 @@ def json_return():
     data = json.dumps(slovar)
     return data
 
+
+#
 name_pc()
 get_os()
 get_activate()
@@ -148,11 +153,14 @@ get_network()
 get_hardware()
 get_printer()
 get_soft()
-# get_info.file_output()
+# # get_info.file_output()
 json_output_file()
-# data2 = get_info.json_read_file()
-
+# # data2 = get_info.json_read_file()
+#
 json_return()
+
+
+
 
 # data2 = json.loads(get_info.json_return())
 #

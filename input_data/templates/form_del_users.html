@@ -10,6 +10,8 @@
 </ul>
 {% endif %}
 
+{% if user.is_authenticated %}
+
 {% if name is null %}
 <h2 class="h1">Справочник пользователей пустой!</h2>
 {% else %}
@@ -34,6 +36,12 @@
 
 </form>
 </div>
+{% endif %}
+{% else %}
+ <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
+
 
 {% endif %}
+
+
 {% endblock %}

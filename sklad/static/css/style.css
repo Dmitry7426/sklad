@@ -3,7 +3,7 @@
     
 }
 body {
-    background-image: url('../img/fon_kub.jpg');
+    background-image: url('../img/light-904.jpg');
     opacity: 0.8;
 }
 
@@ -107,15 +107,19 @@ ul, li {
 .menu:hover {
     transition: 0.5s;
     transform: scale(115%);
-    opacity: 1;
+    
    
 }
 .two{
-    opacity: 0;
+    /* opacity: 0; */
+    display: none;
     
 }
 .one:hover >.two {
-    opacity: 1;
+    /* opacity: 1; */
+    display: flex;
+    flex-direction: column;
+
    
     
 }

@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+
+{% block forms %}
+
+{% if messages %}
+<ul class="messages">
+    {% for messages in messages %}
+    <li>{{ messages }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+<h1 class="h1">Подразделения</h1>
+
+<div class="users">
+    <h3>Введите наименование подразделения:</h3>
+<form method="POST">
+    {% csrf_token %}
+
+        {{ form }}
+        {{ error }}
+
+    <br>
+    <br>
+
+    <input class="button" type="submit" value="Сохранить">
+
+</form>
+</div>
+
+
+
+{% endblock %}

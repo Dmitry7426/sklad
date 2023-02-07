@@ -9,6 +9,9 @@
     {% endfor %}
 </ul>
 {% endif %}
+
+{% if user.is_authenticated %}
+
 <h1 class="forms">Пользователи</h1>
 
 <form method="POST">
@@ -45,5 +48,9 @@
  </div>
     <input type="submit" value="Сохранить" pattern="[А-Яа-я]">
 </form>
+{% else %}
+ <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
 
+
+{% endif %}
 {% endblock %}
