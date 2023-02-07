@@ -1,4 +1,5 @@
 import pythoncom
+from django.core.files.storage import default_storage, FileSystemStorage
 from wmi import WMI
 import re
 import subprocess
@@ -310,7 +311,27 @@ def config_computer_auto(request):
 
 
 def config_computer_file(request):
-    return HttpResponse('<h1>Данная страница находится в разработке!!<h1> <h2><a href="/">На главную</h2>')
+    form = UploadFileForm(request.POST, request.FILES)
+    if request.method == 'POST':
+
+        folder = 'media'
+        if form.is_valid():
+            file = request.FILES['file']
+
+            fs = FileSystemStorage(location=folder)  # defaults to   MEDIA_ROOT
+            filename = fs.save(file.name, file)
+            file_url = fs.url(filename)
+            print('Файл сохранен')
+            print(file_url)
+            print(filename)
+            print(fs)
+            with open(f'.{file_url}', 'r', encoding='UTF-8') as fl:
+                f = fl.read()
+                print(f)
+
+            return render(request, 'upload.html', {'form': form})
+
+    return render(request, 'upload.html', {'form': form})
 
 
 # тестовая форма работы со списком
@@ -421,16 +442,3 @@ def get_config_ps(addr):
     print('Файл готов')
 
 
-# тест чтение файла
-def upload_file(request):
-    form = UploadFileForm()
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            a = request.get('title')
-            form.save()
-            print(a)
-            return HttpResponseRedirect('/success/url/')
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})

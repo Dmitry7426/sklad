@@ -10,17 +10,11 @@
 </ul>
 {% endif %}
 
-
-
-<h1 class="h1">Подразделения</h1>
-
-<div class="users">
-    <h3>Введите наименование подразделения:</h3>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data" >
     {% csrf_token %}
 
         {{ form }}
-        {{ error }}
+
 
     <br>
     <br>

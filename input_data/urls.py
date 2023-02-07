@@ -19,5 +19,4 @@ urlpatterns = [
     path('conf_comp', views.config_computer_manual),
     path('conf_auto', views.config_computer_auto),
     path('conf_as_file', views.config_computer_file),
-    path('upload', views.upload_file),
 ]
