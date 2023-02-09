@@ -1,5 +1,5 @@
 import pythoncom
-from django.core.files.storage import default_storage, FileSystemStorage
+from django.core.files.storage import FileSystemStorage
 from wmi import WMI
 import re
 import subprocess
@@ -11,7 +11,6 @@ from django.shortcuts import render
 from .forms import EquipmentsForm, FormList, BrandsForm, TabForm, UserForm, UserDeleteForm, \
     EquipmentAddForm, EquipmentsLinkUsers, UnitForm, PositionForm, ConfigComputer, UploadFileForm
 from .models import *
-
 
 
 def index(request):
@@ -309,6 +308,7 @@ def config_computer_auto(request):
                     '<h1>Информации о данном ПК не найдено!</h1><br><br><a href="/">Вернуться на главную</a>')
     return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv})
 
+
 # функция получения конфигурации из подготовленного JSON с конфигурацией ПК
 def config_computer_file(request):
     global file_url
@@ -463,7 +463,6 @@ def get_config_ps(addr):
     arr['Процессор'] = computer.Win32_Processor()[0].Name
     arr['Соккет'] = computer.Win32_Processor()[0].SocketDesignation
     arr['ОЗУ'] = round(int(computer.Win32_OperatingSystem()[0].TotalVisibleMemorySize) / 1024 / 1024)
-    # slovar['Кофигурация ПК'] = arr
     for hdd in computer.Win32_DiskDrive():
         hdd_size = int(int(hdd.Size) / 1024 / 1024 / 1024)
         if hdd.Caption:
@@ -483,5 +482,3 @@ def get_config_ps(addr):
     with open('result.json', 'w') as file:
         json.dump(slovar, file)
     print('Файл готов')
-
-

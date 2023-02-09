@@ -25,12 +25,14 @@ def get_activate():
     data = json.dumps(slovar)
     return data
 
+
 def name_pc():
     arr = {}
     arr['Сетевое имя'] = computer.Win32_ComputerSystem()[0].Name
     slovar['Имя ПК'] = arr
     data = json.dumps(slovar)
     return data
+
 
 def get_network():
     arr = {}
@@ -50,6 +52,7 @@ def get_network():
     data = json.dumps(slovar)
     return data
 
+
 def get_user():
     arr = {}
     arr['Имя'] = computer.Win32_ComputerSystem()[0].UserName
@@ -57,12 +60,14 @@ def get_user():
     data = json.dumps(slovar)
     return data
 
+
 def get_os():
     arr = {}
     arr['Наименование'] = computer.Win32_OperatingSystem()[0].Caption
     slovar['Установленная система'] = arr
     data = json.dumps(slovar)
     return data
+
 
 def get_hardware():
     arr = {}
@@ -79,22 +84,15 @@ def get_hardware():
             i += 1
             arr[f'Модель HDD {i}'] = hdd.Model
             arr[f'Обьем {i}'] = int(int(hdd.Size) / 1024 / 1024 / 1024)
-
     slovar['Конфигурация ПК'] = arr
-            # slovar['Производитель'] = hdd.Model
-            # slovar['Емкость диска'] = hdd_size
-            # slovar.update({
-            #     f'Диск {i}': {
-            #         hdd.Model: f'{hdd_size} Gb' }
-            # })
     for video in computer.Win32_videoController():
         arr = {}
         i += 1
-
         arr[video.VideoProcessor] = video.Description
     slovar['Видео'] = arr
     data = json.dumps(slovar)
     return data
+
 
 def get_printer():
     i = 0
@@ -106,6 +104,7 @@ def get_printer():
     data = json.dumps(slovar)
     return data
 
+
 def get_soft():
     i = 0
     arr = {}
@@ -116,12 +115,14 @@ def get_soft():
     data = json.dumps(slovar)
     return data
 
+
 def file_output():
     with open(f'c:/getinfo/{computer.Win32_ComputerSystem()[0].Name}.txt', 'a',
               encoding='UTF-8') as file_out:
         for key, val in slovar.items():
             key = str(re.sub(r'[^a-zA-Zа-яА-Я ]', '', key))
             file_out.writelines(f'{key}: {val}; \n')
+
 
 def json_output_file():
     i = 0
@@ -133,11 +134,13 @@ def json_output_file():
         json.dump(slovar, fp)
     print('Файл готов')
 
+
 def json_read_file():
     file = input('Введите имя файла JSON: ')
     with open(file, 'r') as fp:
         data = json.load(fp)
     return data
+
 
 def json_return():
     data = json.dumps(slovar)
@@ -158,37 +161,3 @@ json_output_file()
 # # data2 = get_info.json_read_file()
 #
 json_return()
-
-
-
-
-# data2 = json.loads(get_info.json_return())
-#
-# print(data2['Установленная ОС'])
-# print(data2['Статус активации'])
-# print(data2['Пользователь'])
-# print(data2['Сеть']['IP адрес'])
-# print(data2['Сеть']['MAC адрес'])
-# print(data2['Имя ПК'])
-# print(data2['Сеть']['Скорость соединения'])
-# for key, value in data2['HDD'].items():
-#     print(key)
-# print(data2['Производитель'] + '; ' + data2['Модель'])
-# print(data2['Процессор'])
-# print(data2['Соккет'])
-# print(data2['ОЗУ'])
-# print(data2['Принтера'])
-
-
-
-
-
-# for key, value in data2.items():
-#     print(key, value)
-# data2 = json.load(get_info.json_return())
-#
-#
-# print(data2)
-
-
-

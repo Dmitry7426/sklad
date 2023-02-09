@@ -17,17 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-
-# from input_data import views
-# from login_auth import views
-
 urlpatterns = [
-    # path('', views.index),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('input_data/', include('input_data.urls')),
     path('', include('login_auth.urls')),
-    # path('login_auth/index/', include('login_auth.urls')),
-    # path('login_auth/register/', include('login_auth.urls')),
-    # path('login_auth/testauth/', include('login_auth.urls')),
 ]

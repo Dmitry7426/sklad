@@ -1,35 +1,40 @@
-
 from django import forms
-from django.core.validators import validate_slug, validate_unicode_slug, RegexValidator
 
 
 # Форма типов оборудования
 class EquipmentsForm(forms.Form):
     name = forms.CharField(label="Тип оборудования:")
 
+
 # форма бренды
 class BrandsForm(forms.Form):
     name = forms.CharField(label="Бренд:")
+
 
 # форма модели
 class ModelsForm(forms.Form):
     name = forms.CharField(label="Модель")
 
+
 # инвентарные номера
 class InvNumForm(forms.Form):
     inv = forms.CharField(label='Инвентарный номер')
+
 
 # форма подразделение
 class UnitForm(forms.Form):
     name = forms.CharField(label='Наименование подразделения')
 
+
 # форма должности
 class PositionForm(forms.Form):
     name = forms.CharField(label='Наименование должности')
 
+
 # форма для шаблона с вкладками
 class TabForm(forms.Form):
     name = forms.CharField(label='Введите данные')
+
 
 # форма заполнения Фамилии, имени, отчества сотрудников
 class UserForm(forms.Form):
@@ -38,6 +43,7 @@ class UserForm(forms.Form):
     SurName = forms.CharField(label='Фамилия')
     # Position = forms.CharField(label='Должность')
     # Units = forms.CharField(label='Подразделение')
+
 
 # форма для удаления пользователя из справочника
 class UserDeleteForm(forms.Form):
@@ -53,6 +59,7 @@ class EquipmentAddForm(forms.Form):
     # typ = forms.CharField(label='Тип')
     # brand = forms.CharField(label='Бренд')
     # model = forms.CharField(label='Модель')
+
 
 # форма привязки оборудования к пользователю
 class EquipmentsLinkUsers(forms.Form):
@@ -86,9 +93,7 @@ class ConfigComputer(forms.Form):
 class FormList(forms.Form):
     lst = forms.ChoiceField()
 
+
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=50, label='Описание файла')
     file = forms.FileField(label='Выберите файл')
-
-
-

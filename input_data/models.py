@@ -1,4 +1,3 @@
-
 from django.db import models
 
 
@@ -35,12 +34,15 @@ class Users(models.Model):
     Position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=True)
     Unit = models.ForeignKey(Unit, on_delete=models.CASCADE, blank=True)
 
+
+# таблица инвентарные номере с привязками
 class InvNum(models.Model):
     InvNumber = models.CharField(max_length=9, unique=True)
     typ = models.ForeignKey(TypesEquipments, on_delete=models.CASCADE, null=True)
     brand = models.ForeignKey(Brands, on_delete=models.CASCADE, null=True)
     model = models.ForeignKey(Models, on_delete=models.CASCADE, null=True)
     netname = models.CharField(max_length=25, null=True)
+
 
 # Таблица Состав оборудования
 class Hardware(models.Model):
@@ -64,11 +66,6 @@ class Hardware(models.Model):
 # Таблица Оборудование с инвентарными номерами и связи по пользователям, подразделениям
 class Equipments(models.Model):
     Number = models.ForeignKey(InvNum, on_delete=models.DO_NOTHING)
-    # Types_id = models.ForeignKey(TypesEquipments, on_delete=models.CASCADE)
-    # Brand_id = models.ForeignKey(Brands, on_delete=models.CASCADE)
-    # Model_id = models.ForeignKey(Models, on_delete=models.CASCADE)
     User = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True)
     Hardware = models.ForeignKey(Hardware, on_delete=models.CASCADE, blank=True, null=True)
-
-
 

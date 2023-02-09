@@ -1,77 +1,63 @@
 {% extends "index.html" %}
 
-
 {% block content %}
+
 {% if user.is_authenticated %}
-
 <h1 class="h1">Справочник типов, моделей, брендов оборудования</h1>
-<div class="users">
-<div class="tabs">
-
-    <input type="radio" name="inset" value="" id="tab_2">
-    <label for="tab_2">Тип оборудования</label>
-    <input type="radio" name="inset" value="" id="tab_3">
-    <label for="tab_3">Бренд</label>
-    <input type="radio" name="inset" value="" id="tab_4">
-    <label for="tab_4">Модель</label>
-
-
-
-    <div id="txt_2">
-        <h1 class="forms">Введите тип оборудования</h1>
-    <form method="POST" id="n2">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-        {{ field.auto_id }}
-    </table>
-        <br><br>
-    <input class="button" type="submit" value="Сохранить">
-    <input type="hidden" name="forms" value="equipments">
-        <br><br>
-</form>
-
-    </div>
-
-
+    <div class="users">
+        <div class="tabs">
+            <input type="radio" name="inset" value="" id="tab_2">
+            <label for="tab_2">Тип оборудования</label>
+            <input type="radio" name="inset" value="" id="tab_3">
+            <label for="tab_3">Бренд</label>
+            <input type="radio" name="inset" value="" id="tab_4">
+            <label for="tab_4">Модель</label>
+        <div id="txt_2">
+            <h1 class="forms">Введите тип оборудования</h1>
+                <form method="POST" id="n2">
+                    {% csrf_token %}
+                    <table>
+                        {{ form }}
+                        {{ field.auto_id }}
+                    </table>
+                    <br><br>
+                    <input class="button" type="submit" value="Сохранить">
+                    <input type="hidden" name="forms" value="equipments">
+                    <br><br>
+                </form>
+        </div>
     <div id="txt_3">
-
         <h1 class="forms">Введите бренд</h1>
-<form method="POST" id="n3">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-        {{ field.auto_id }}
-    </table>
-    <br><br>
-    <input class="button"  type="submit" value="Сохранить">
-    <input type="hidden" name="forms" value="brands">
-    <br><br>
-</form>
-
+            <form method="POST" id="n3">
+                {% csrf_token %}
+                <table>
+                    {{ form }}
+                    {{ field.auto_id }}
+                </table>
+                <br><br>
+                <input class="button"  type="submit" value="Сохранить">
+                <input type="hidden" name="forms" value="brands">
+                <br><br>
+            </form>
     </div>
-
-    <div id="txt_4">
-<h1 class="forms">Введите модель</h1>
-<form method="POST" id="n4">
-    {% csrf_token %}
-    <table>
-        {{ form }}
-        {{ field.auto_id }}
-    </table>
-    <br><br>
-    <input class="button"  type="submit" value="Сохранить">
-    <input type="hidden" name="forms" value="models">
-    <br><br>
-</form>
-
+<div id="txt_4">
+    <h1 class="forms">Введите модель</h1>
+        <form method="POST" id="n4">
+            {% csrf_token %}
+            <table>
+                {{ form }}
+                {{ field.auto_id }}
+            </table>
+            <br><br>
+            <input class="button"  type="submit" value="Сохранить">
+            <input type="hidden" name="forms" value="models">
+            <br><br>
+        </form>
     </div>
-</div>
+    </div>
 </div>
 {% else %}
- <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
-
-
+<h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
 {% endif %}
 
 {% endblock %}

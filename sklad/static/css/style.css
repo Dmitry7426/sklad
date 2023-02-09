@@ -175,11 +175,12 @@ ul, li {
     border: black solid 2px;
     width: 50vmax;
     margin: 0 auto;
-   
 }
+
 .option {
     width: 250px;
 }
+
 .button {
     margin-top: 15px;
     display: flex;
