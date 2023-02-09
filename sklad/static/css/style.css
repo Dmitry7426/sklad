@@ -170,7 +170,7 @@ ul, li {
 .users {
     background: rgb(160, 217, 255);
     text-align: left;
-    padding: 5%;
+    padding: 1%;
     height: max-content;
     border: black solid 2px;
     width: 50vmax;

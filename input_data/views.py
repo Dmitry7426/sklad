@@ -309,29 +309,72 @@ def config_computer_auto(request):
                     '<h1>Информации о данном ПК не найдено!</h1><br><br><a href="/">Вернуться на главную</a>')
     return render(request, 'form_config_comp_auto.html', {'form': form, 'inv': inv})
 
-
+# функция получения конфигурации из подготовленного JSON с конфигурацией ПК
 def config_computer_file(request):
+    global file_url
+    inv = InvNum.objects.all()
+    hard = Hardware.objects.all()
     form = UploadFileForm(request.POST, request.FILES)
     if request.method == 'POST':
-
         folder = 'media'
         if form.is_valid():
             file = request.FILES['file']
-
             fs = FileSystemStorage(location=folder)  # defaults to   MEDIA_ROOT
             filename = fs.save(file.name, file)
             file_url = fs.url(filename)
-            print('Файл сохранен')
-            print(file_url)
-            print(filename)
-            print(fs)
-            with open(f'.{file_url}', 'r', encoding='UTF-8') as fl:
-                f = fl.read()
-                print(f)
+            with open(f'.{file_url}', 'r') as file:
+                    dt = json.load(file)
+                    arr = []
+                    soft = []
+                    for key, value in dt.items():
+                        for k, v in value.items():
+                            arr.append(k)
+                            arr.append(v)
+                    for name_po, brand in dt['Программное обеспечение'].items():
+                        soft.append(name_po)
+                    for item in hard:
+                        tmp = []
+                        tmp.append(item.InvNumber.InvNumber)
+                    inv_n = []
+                    inv_n.append(request.POST.get('invent'))
 
-            return render(request, 'upload.html', {'form': form})
+        if 'getnum' in request.POST:
+            with open(f'.{file_url}', 'r') as file:
+                    dt = json.load(file)
+                    arr = []
+                    soft = []
+                    for key, value in dt.items():
+                        for k, v in value.items():
+                            arr.append(k)
+                            arr.append(v)
+                    for name_po, brand in dt['Программное обеспечение'].items():
+                        soft.append(name_po)
+                    for item in hard:
+                        tmp = []
+                        tmp.append(item.InvNumber.InvNumber)
+                    inv_n = []
+                    inv_n.append(request.POST.get('invent'))
+                    for items in request.POST:
+                        a1 = []
+                        a1.append(items)
+                    if ''.join(a1) == 'getnum':
+                        if Hardware.objects.filter(InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n))):
+                            return HttpResponse(
+                                '<h2>Такая запись есть!</h2><h3><a href="/input_data/conf_as_file">Вернуться назад</h3>')
+                        else:
+                            Hardware.objects.create(
+                                InvNumber=InvNum.objects.get(InvNumber=''.join(inv_n)), OperateSystem=arr[3],
+                                Activate=arr[5], CurrentUser=(str(arr[7]).split('\\'))[1], IPAddress=arr[13],
+                                MAC=arr[11], SystemName=arr[1], LANSpeed=arr[15],
+                                HDD=dt['Конфигурация ПК']['Модель HDD'], Mboard=(arr[17] + '; ' + arr[19]),
+                                ProcessorName=arr[21], Soccet=arr[23], OZU=arr[25],
+                                PrinterTypeConnect=arr[33], InstalledSoft=str(soft))
 
-    return render(request, 'upload.html', {'form': form})
+            return render(request, 'upload.html', {'form': form, 'inv': inv, 'dt': dt, 'form_put': arr, 'soft': soft})
+
+        return render(request, 'upload.html', {'form': form, 'dt': dt, 'inv': inv})
+
+    return render(request, 'upload.html', {'form': form, 'inv': inv})
 
 
 # тестовая форма работы со списком

@@ -87,8 +87,8 @@ class FormList(forms.Form):
     lst = forms.ChoiceField()
 
 class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+    title = forms.CharField(max_length=50, label='Описание файла')
+    file = forms.FileField(label='Выберите файл')
 
 
 
