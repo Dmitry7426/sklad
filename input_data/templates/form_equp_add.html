@@ -13,27 +13,29 @@
 {% if user.is_authenticated %}
 
 <h1 class="h1">Добавление нового оборудования</h1>
-<div class="users">
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {{ validate.error }}
-        {{ form }}
-        {{ error }}
-    </table>
-
+    <div class="users">
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ validate.error }}
+                {{ form }}
+                {{ error }}
+            </table>
 
 <!--    ФОрмирование списка по типам    -->
+
     <div><h3>Тип</h3>
-    <select name="typeeq" size="1">
-         {% for i in typeeq %}
-            <option value="{{ i.TypesEq }}">
-                {{ i.TypesEq }}
-            {{ error }}
-            </option>
-        {% endfor %}
-    </select>
+        <select name="typeeq" size="1">
+             {% for i in typeeq %}
+                <option value="{{ i.TypesEq }}">
+                    {{ i.TypesEq }}
+                {{ error }}
+                </option>
+            {% endfor %}
+        </select>
+
 <!--    Формирование списка по брендам  -->
+
 <div><h3>Бренд</h3>
     <select name="brand" size="1">
         {% for i in brands %}
@@ -44,7 +46,7 @@
         {% endfor %}
     </select>
 <!--    Формирование списка по моделям  -->
- <div><h3>Модель</h3>
+<div><h3>Модель</h3>
     <select name="model" size="1">
         {% for i in models %}
             <option value="{{ i.ModelName }}">
@@ -54,10 +56,9 @@
         {% endfor %}
     </select>
     <br>
-     <br>
-
+    <br>
     <input class="button" type="submit" value="Сохранить">
- </div>
+</div>
 </div>
     </div>
 </form>
@@ -65,7 +66,6 @@
 
 {% else %}
    <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
-
 
 {% endif %}
 {% endblock %}

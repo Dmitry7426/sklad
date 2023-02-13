@@ -10,11 +10,7 @@
 </ul>
 {% endif %}
 
-
-
 {% if user.is_authenticated %}
-
-
 
 <h1 class="h1">Подразделения</h1>
 
@@ -28,16 +24,12 @@
     </table>
     <br>
     <br>
-
     <input class="button" type="submit" value="Сохранить">
 {% else %}
    <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
 
-
 {% endif %}
 </form>
 </div>
-
-
 
 {% endblock %}
