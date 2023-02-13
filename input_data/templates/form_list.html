@@ -1,29 +1,22 @@
 {% extends "index.html" %}
 
-
-
-
 {% block forms %}
-
 
 <h1 class="forms">Удаление пользователя</h1>
 <form method="POST">
     {% csrf_token %}
     <select name="select" size="5">
         {% for i in name %}
-    <option value="{{ i }}">
-        {{ i }}
-    </option>
-      {% endfor %}
-  </select>
+        <option value="{{ i }}">
+            {{ i }}
+        </option>
+            {% endfor %}
+    </select>
     <br>
     <br>
     <input type="submit" value="Сохранить">
-
-
 </form>
 <br>
 <br>
-
 
 {% endblock %}

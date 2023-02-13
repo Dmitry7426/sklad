@@ -14,7 +14,7 @@
 
 <h1 class="h1">Постановка на учет оборудования</h1>
 <div class="users">
-<form method="POST">
+    <form method="POST">
     {% csrf_token %}
 <!--    Формирование списка выбора инвентарного номера  -->
     <div><h3>Инвентарный номер</h3>
@@ -27,37 +27,27 @@
             {% endfor %}
         </select>
 
- <div><h3>Пользователь</h3>
-    <select name="user" size="5">
-        {% for i in user %}
-            <option value="{{ i.SurName }}">
-                {{ i.SurName}}{{ ' ' }}{{ i.UserName }}{{ ' ' }}{{ i.MidlName}}{{ ' - ' }}{{ i.Unit.UnitName }}{{ ', ' }}{{ i.Position.PositionName }}
-            {{ error }}
-            </option>
-        {% endfor %}
-    </select>
-
-
-
-    <br>
-    <br>
-    <input class="button" type="submit" value="Записать">
-
-
-
-
-
-
-        </div>
-</div>
-</form>
+    <div><h3>Пользователь</h3>
+        <select name="user" size="5">
+            {% for i in us %}
+                <option value="{{ i.SurName }}">
+                    {{ i.SurName}}{{ ' ' }}{{ i.UserName }}{{ ' ' }}{{ i.MidlName}}{{ ' - ' }}{{ i.Unit.UnitName }}{{ ', ' }}{{ i.Position.PositionName }}
+                {{ error }}
+                </option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <input class="button" type="submit" value="Записать">
+    </div>
+    </div>
+    </form>
 </div>
 <br>
 <br>
 
 {% else %}
    <h1 class="users">Форма не доступна не авторизованным пользователям!</h1>
-
 
 {% endif %}
 

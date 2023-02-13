@@ -4,7 +4,7 @@ import subprocess
 import json
 
 
-computer = WMI('10.11.4.249')
+computer = WMI()
 slovar = {}
 slovar2 = {}
 i = 0
@@ -130,7 +130,7 @@ def json_output_file():
         if net.IPAddress:
             i += 1
             ip = net.IPAddress[0]
-    with open(f'//winwsus/inv21/inv_new/{ip}.json', 'w') as fp:
+    with open(f'{ip}.json', 'w') as fp:
         json.dump(slovar, fp)
     print('Файл готов')
 

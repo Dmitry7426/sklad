@@ -3,27 +3,26 @@
 {% block forms %}
 
 {% if messages %}
+
 <ul class="messages">
     {% for messages in messages %}
     <li>{{ messages }}</li>
     {% endfor %}
 </ul>
+
 {% endif %}
+
 <div class="users">
 <form method="POST" enctype="multipart/form-data" >
     {% csrf_token %}
-        {{ form.as_p }}
-
-
+    {{ form.as_p }}
    <input class="button" type="submit" value="Прочитать файл">
-
 </form>
 </div>
 
 <div class="users">
     <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-
     <select name="invent" size="1">
          {% for i in inv %}
             <option value="{{ i.InvNumber }}">
@@ -31,14 +30,9 @@
                 {{ error }}
             </option>
         {% endfor %}
-
     </select>
-
         <input class="button" type="submit" value="Подтвердить и записать">
         <input type="hidden" name="getnum">
-
-
-
 </form>
 </div>
 
@@ -47,25 +41,17 @@
 <table class="getinftable">
     {% for key, value in dt.items %}
     <tr class="gettr">
-
         <td class="gettd">
-
             {{ key }}
-
         </td>
-
         <td class="gettd">
-
             {% for i, j in value.items %}
             {{i|linebreaks}}
             {{ j|linebreaks }}
             {% endfor %}
         </td>
-
     </tr>
-
            {% endfor %}
-
 </table>
 <hr>
 <table class="getinftable">
@@ -73,14 +59,9 @@
     {% for k, v in i.items %}
     <tr class="gettr">
         <td class="gettd">
-
-                {{k}}
-
-                {%endfor%}
-
-
-
-            {% endfor %}
+            {{k}}
+            {%endfor%}
+        {% endfor %}
         </td>
     </tr>
 </table>

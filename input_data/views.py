@@ -98,10 +98,6 @@ def form_users(request):
         for item in request.POST:
             arr.append(request.POST.get(item))
         arr = arr[1:]
-        print(arr)
-        print(request.POST.get('position'))
-        print(request.POST.get('unit'))
-
         if func_re(arr):
             Users.objects.create(UserName=arr[0], MidlName=arr[1], SurName=arr[2],
                                  Position=Position.objects.get(PositionName=request.POST.get('position')),
@@ -145,18 +141,14 @@ def form_delete_user(request):
 def form_equipments(request):
     form = EquipmentsLinkUsers()
     invnum = InvNum.objects.all()
-    user = Users.objects.all()
-    for i in invnum:
-        print(i.InvNumber, i.typ.TypesEq, i.model.ModelName, i.brand.BrandName)
-    for i in user:
-        print(i.UserName, i.MidlName, i.SurName, i.Unit.UnitName, i.Position.PositionName)
+    us = Users.objects.all()
     if request.method == 'POST':
         Equipments.objects.create(Number=InvNum.objects.get(InvNumber=request.POST.get('inv')),
                                   User=Users.objects.get(SurName=request.POST.get('user'))).save()
         return render(request, 'form_equipments_all.html', {'form': form, 'invnum': invnum,
-                                                            'models': models, 'user': user})
+                                                            'models': models, 'us': us})
     return render(request, 'form_equipments_all.html', {'form': form, 'invnum': invnum,
-                                                        'models': models, 'user': user})
+                                                        'models': models, 'us': us})
 
 
 # функция регистрации нового оборудования
@@ -330,8 +322,12 @@ def config_computer_file(request):
                         for k, v in value.items():
                             arr.append(k)
                             arr.append(v)
-                    for name_po, brand in dt['Программное обеспечение'].items():
-                        soft.append(name_po)
+                    try:
+                        for name_po, brand in dt['Программное обеспечение'].items():
+                            soft.append(name_po)
+                    except:
+                        return HttpResponse('<h1>Файл поврежден или не верный формат!</h1>'
+                                            '<br><br><a href="/input_data/conf_as_file">Вернуться назад</a>')
                     for item in hard:
                         tmp = []
                         tmp.append(item.InvNumber.InvNumber)

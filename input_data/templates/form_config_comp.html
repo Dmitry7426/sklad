@@ -18,23 +18,20 @@
 <form method="POST">
     {% csrf_token %}
     <div><h3>Выбрать устройство</h3>
-    <select name="invent" size="1">
-         {% for i in inv %}
+        <select name="invent" size="1">
+            {% for i in inv %}
             <option value="{{ i.InvNumber }}">
                 {{ i.InvNumber }} {{' - '}} {{ i.typ.TypesEq }}
-            {{ error }}
+                {{ error }}
             </option>
-        {% endfor %}
-    </select>
-
-
-    <table>
-
-        {{ form }}
-        {{ error }}
-    </table>
-    <br><br>
-    <input class="button" type="submit" value="Сохранить">
+            {% endfor %}
+        </select>
+        <table>
+            {{ form }}
+            {{ error }}
+        </table>
+        <br><br>
+        <input class="button" type="submit" value="Сохранить">
     </div>
 </form>
 </div>
